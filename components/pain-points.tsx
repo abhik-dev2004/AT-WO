@@ -24,7 +24,7 @@ const POINTS = [
 export default function PainPoints() {
   return (
     <section className="mx-auto mt-28 max-w-[88rem] px-6 sm:mt-40">
-      <Reveal className="max-w-4xl">
+      <Reveal>
         <h2 className="font-display text-3xl font-semibold leading-tight tracking-tight sm:text-[2.6rem]">
           The services are expected, but here is what most vendors won&rsquo;t
           tell you — and what we built our model around

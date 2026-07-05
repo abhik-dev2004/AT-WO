@@ -64,7 +64,7 @@ const SERVICES: Service[] = [
 export default function Services() {
   return (
     <section id="services" className="mx-auto mt-28 max-w-[88rem] px-6 sm:mt-40">
-      <Reveal className="max-w-3xl">
+      <Reveal>
         <h2 className="font-display text-3xl font-semibold leading-tight tracking-tight sm:text-[2.6rem]">
           End-to-end solutions built to handle every dimension of your digital
           growth

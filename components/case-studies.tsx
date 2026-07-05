@@ -118,19 +118,15 @@ export default function CaseStudies() {
                 &ldquo;
               </span>
               <span className="align-middle italic">{t.quote}</span>
+              <span aria-hidden className="text-gradient font-display text-2xl leading-none">
+                &rdquo;
+              </span>
             </blockquote>
-            <figcaption className="mt-6 flex items-center gap-3 border-t border-white/8 pt-5">
-              <span
-                className={`grid h-10 w-10 place-items-center rounded-full bg-gradient-to-br ${t.grad} font-display text-sm font-semibold text-[#12040a]`}
-              >
-                {t.name.charAt(0)}
+            <figcaption className="mt-6 border-t border-white/8 pt-5">
+              <span className="block font-display text-sm font-semibold text-ink">
+                {t.name}
               </span>
-              <span>
-                <span className="block font-display text-sm font-semibold text-ink">
-                  {t.name}
-                </span>
-                <span className="block text-xs text-ink-subtle">{t.role}</span>
-              </span>
+              <span className="block text-xs text-ink-subtle">{t.role}</span>
             </figcaption>
           </Reveal>
         ))}

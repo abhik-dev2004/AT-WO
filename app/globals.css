@@ -1,26 +1,722 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* ------------------------------------------------------------------ *
+ *  Abstract Techvisions — Design System
+ *  Dark-mode, premium ambient lighting. Red + Cyan primary,
+ *  Purple + Amber secondary. Glassmorphism + mesh-gradient glows.
+ * ------------------------------------------------------------------ */
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-space-grotesk), "Space Grotesk", ui-sans-serif,
+    system-ui, sans-serif;
+  --font-sans: var(--font-inter), "Inter", ui-sans-serif, system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@theme {
+  /* Surfaces */
+  --color-bg: #050609;
+  --color-bg-elevated: #0a0c13;
+  --color-surface: rgba(255, 255, 255, 0.03);
+
+  /* Brand light keys */
+  --color-brand-red: #ff4d63;
+  --color-brand-cyan: #34e2ea;
+  --color-brand-purple: #a374ff;
+  --color-brand-amber: #ffb257;
+
+  /* Ink */
+  --color-ink: #f7f9fd;
+  --color-ink-muted: #c2c9d6;
+  --color-ink-subtle: #8b95a8;
+
+  /* Hairline borders */
+  --color-hairline: rgba(255, 255, 255, 0.08);
+
+  --radius-card: 30px;
+}
+
+:root {
+  --background: var(--color-bg);
+  --foreground: var(--color-ink);
+}
+
+* {
+  border-color: var(--color-hairline);
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--color-bg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  /* Establish a stacking context so the z-index:-10 ambient canvas paints
+     above the body background (and still behind page content). */
+  isolation: isolate;
+}
+
+::selection {
+  background: rgba(255, 77, 99, 0.28);
+  color: #fff;
+}
+
+/* Scrollbar (webkit) — subtle to match the dark theme */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+/* ------------------------------------------------------------------ *
+ *  Typography helpers
+ * ------------------------------------------------------------------ */
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* ShinyText — a highlight sweeps across the label (reactbits.dev). */
+.eyebrow {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-ink-subtle);
+  background: linear-gradient(
+    110deg,
+    var(--color-ink-subtle) 42%,
+    rgba(245, 247, 252, 0.95) 50%,
+    var(--color-ink-subtle) 58%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .eyebrow {
+    animation: shineText 6s linear infinite;
+  }
+}
+@keyframes shineText {
+  0% {
+    background-position: 120% 0;
+  }
+  100% {
+    background-position: -120% 0;
+  }
+}
+
+/* Animated GradientText — the gradient slowly drifts (reactbits.dev). */
+.text-gradient {
+  background: linear-gradient(
+    100deg,
+    #fff 0%,
+    #ffd9df 32%,
+    #cfeff2 62%,
+    #d6c9ff 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .text-gradient {
+    animation: gradientShift 8s ease infinite;
+  }
+}
+@keyframes gradientShift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ *  Glassmorphism cards + hairline refraction
+ * ------------------------------------------------------------------ */
+.glass {
+  /* Same dark frost level as the navbar. */
+  background: linear-gradient(
+    180deg,
+    rgba(12, 14, 22, 0.62) 0%,
+    rgba(8, 10, 16, 0.76) 100%
+  );
+  backdrop-filter: blur(40px) saturate(150%);
+  -webkit-backdrop-filter: blur(40px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -10px 18px -14px rgba(0, 0, 0, 0.4),
+    0 8px 22px -14px rgba(0, 0, 0, 0.6);
+}
+
+/* Deeply rounded card w/ an internal, moody mesh-gradient light source
+   and a razor-thin border that catches the light at the top edge. */
+.card {
+  position: relative;
+  border-radius: var(--radius-card);
+  /* White frosted glass — translucent light fill + heavy blur so the
+     coloured waves refract through as a bright frosted panel.
+     Layer 1 = GlareHover sweep (parked off-screen; sweeps across on hover). */
+  background-image: linear-gradient(
+      115deg,
+      transparent 34%,
+      rgba(255, 255, 255, 0.08) 48%,
+      transparent 62%
+    ),
+    linear-gradient(
+      160deg,
+      rgba(12, 14, 22, 0.66) 0%,
+      rgba(9, 11, 18, 0.76) 60%,
+      rgba(8, 10, 16, 0.8) 100%
+    );
+  background-size: 250% 100%, 100% 100%;
+  background-position: 165% 0, 0 0;
+  background-repeat: no-repeat;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  /* Same dark frost level as the navbar — obscures the background fully. */
+  backdrop-filter: blur(40px) saturate(150%);
+  -webkit-backdrop-filter: blur(40px) saturate(150%);
+  overflow: hidden;
+  /* Multi-edge rim highlights read as real glass thickness. */
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 1.5px 0 0 rgba(255, 255, 255, 0.08),
+    inset -1.5px -1.5px 0 rgba(255, 255, 255, 0.07),
+    0 30px 70px -34px rgba(0, 0, 0, 0.9);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.4s ease, box-shadow 0.4s ease,
+    background-position 0.85s ease;
+}
+
+/* Colourless top light — the card behaves as clear glass, no tint. */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: -40% -20% auto -20%;
+  height: 90%;
+  background: radial-gradient(
+    60% 70% at 30% 0%,
+    rgba(255, 255, 255, 0.16) 0%,
+    transparent 70%
+  );
+  opacity: 0.6;
+  filter: blur(28px);
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+/* Bright refraction where the internal light meets the top edge (neutral). */
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.62) 0%,
+    rgba(255, 255, 255, 0.05) 30%,
+    transparent 55%,
+    rgba(255, 255, 255, 0.2) 100%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.card-hover:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.1) inset,
+    0 34px 80px -30px rgba(0, 0, 0, 0.95);
+  background-position: -75% 0, 0 0;
+}
+.card-hover:hover::before {
+  opacity: 0.85;
+}
+
+/* ------------------------------------------------------------------ *
+ *  Frosted pill tokens / tags
+ * ------------------------------------------------------------------ */
+.token {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: 999px;
+  padding: 0.34rem 0.8rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-ink-muted);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+/* ------------------------------------------------------------------ *
+ *  Buttons — pill, glass, luminous hover
+ *  (in @layer components so positioning/display utilities can override)
+ * ------------------------------------------------------------------ */
+@layer components {
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 0.95rem;
+  line-height: 1;
+  padding: 0.95rem 1.6rem;
+  cursor: pointer;
+  isolation: isolate;
+  transition: transform 0.25s ease, box-shadow 0.35s ease,
+    filter 0.35s ease, background 0.35s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn:active {
+  transform: translateY(1px) scale(0.99);
+}
+.btn:focus-visible {
+  outline: 2px solid var(--color-brand-cyan);
+  outline-offset: 3px;
+}
+
+.btn-primary {
+  color: #12040a;
+  background: linear-gradient(
+    100deg,
+    var(--color-brand-red) 0%,
+    #ff7a5c 44%,
+    var(--color-brand-amber) 100%
+  );
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.18) inset,
+    0 10px 40px -12px rgba(255, 77, 99, 0.6);
+}
+.btn-primary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    100deg,
+    rgba(255, 255, 255, 0.5),
+    transparent 45%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  z-index: -1;
+}
+.btn-primary:hover {
+  filter: saturate(120%) brightness(1.08);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.28) inset,
+    0 14px 50px -10px rgba(255, 77, 99, 0.75);
+}
+.btn-primary:hover::before {
+  opacity: 1;
+}
+
+.btn-glass {
+  color: var(--color-ink);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08) inset;
+}
+.btn-glass:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.24);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.14) inset,
+    0 0 34px -8px rgba(52, 226, 234, 0.45);
+}
+}
+
+/* ------------------------------------------------------------------ *
+ *  Ambient background — fluid, diffused, caustic blobs
+ * ------------------------------------------------------------------ */
+.aurora {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.55;
+  pointer-events: none;
+  will-change: transform;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .aurora-drift {
+    animation: drift 22s ease-in-out infinite alternate;
+  }
+  .aurora-drift-slow {
+    animation: drift 34s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(4%, -6%, 0) scale(1.12);
+  }
+}
+
+/* Faint grid overlay to add depth to the hero */
+.grid-veil {
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.028) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(
+    ellipse 70% 60% at 50% 32%,
+    #000 0%,
+    transparent 78%
+  );
+  mask-image: radial-gradient(
+    ellipse 70% 60% at 50% 32%,
+    #000 0%,
+    transparent 78%
+  );
+}
+
+/* ------------------------------------------------------------------ *
+ *  Scroll-reveal
+ * ------------------------------------------------------------------ */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Hide scrollbar for horizontal scrollers */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ------------------------------------------------------------------ *
+ *  Glow button — soft gradient pill with a coloured bloom.
+ *  Colour is driven by --c (set per-instance); text is a prop.
+ * ------------------------------------------------------------------ */
+@layer components {
+  .glow-btn {
+    --c: #7b5cff;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 999px;
+    padding: 1rem 2rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    background-color: var(--c);
+    /* Gradient radiates from the middle: bright core → base → soft edge. */
+    background-image: radial-gradient(
+      115% 135% at 50% 50%,
+      color-mix(in srgb, var(--c) 60%, #fff 40%) 0%,
+      var(--c) 46%,
+      color-mix(in srgb, var(--c) 70%, #000 30%) 100%
+    );
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5),
+      inset 0 -6px 14px -10px rgba(0, 0, 0, 0.45),
+      0 6px 16px -8px color-mix(in srgb, var(--c) 50%, transparent),
+      0 0 22px -6px color-mix(in srgb, var(--c) 42%, transparent);
+    transition: transform 0.2s ease, box-shadow 0.35s ease, filter 0.35s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  /* Grainy film texture over the button colour. */
+  .glow-btn::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0.3;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='110' height='110'%3E%3Cfilter id='bg'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23bg)'/%3E%3C/svg%3E");
+    background-size: 120px 120px;
+  }
+  .glow-btn:hover {
+    filter: brightness(1.06) saturate(1.03);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6),
+      inset 0 -6px 14px -10px rgba(0, 0, 0, 0.45),
+      0 8px 20px -8px color-mix(in srgb, var(--c) 55%, transparent),
+      0 0 30px -4px color-mix(in srgb, var(--c) 52%, transparent);
+  }
+  .glow-btn:active {
+    transform: translateY(1px) scale(0.99);
+  }
+  .glow-btn:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 3px;
+  }
+  .glow-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.65;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ *  Site-wide liquid-chrome WebGL backdrop (see components/liquid-chrome)
+ * ------------------------------------------------------------------ */
+.chrome-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  overflow: hidden;
+  pointer-events: none;
+  background: var(--color-bg);
+}
+.chrome-bg canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+/* Tones the chrome for text legibility — lighter over the hero, darker
+   toward the edges — and adds a faint brand wash. */
+.chrome-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: radial-gradient(
+      140% 120% at 50% 30%,
+      rgba(5, 6, 9, 0),
+      rgba(5, 6, 9, 0.42) 100%
+    ),
+    linear-gradient(180deg, rgba(5, 6, 9, 0.08), rgba(5, 6, 9, 0.24));
+}
+/* Fine film grain over the flowing colour (matches the reference texture). */
+.chrome-grain {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.16;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 170px 170px;
+}
+
+/* ------------------------------------------------------------------ *
+ *  Liquid-morphic decorative blobs — gooey, wobbling glass tiles
+ * ------------------------------------------------------------------ */
+.liquid-blob {
+  border-radius: 42% 58% 56% 44% / 46% 44% 56% 54%;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .liquid-blob {
+    animation: blobMorph 9s ease-in-out infinite;
+  }
+}
+@keyframes blobMorph {
+  0%,
+  100% {
+    border-radius: 42% 58% 56% 44% / 46% 44% 56% 54%;
+  }
+  33% {
+    border-radius: 60% 40% 42% 58% / 58% 56% 44% 42%;
+  }
+  66% {
+    border-radius: 44% 56% 62% 38% / 40% 54% 46% 60%;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ *  Hero carousel
+ * ------------------------------------------------------------------ */
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.9s ease, visibility 0.9s ease;
+}
+.hero-slide.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+.hero-slide__visual {
+  position: absolute;
+  inset: 0;
+  transform: scale(1.03);
+}
+/* The video renders on its own GPU layer and is NOT ken-burns-scaled —
+   animating a scale on a decoding <video> causes subpixel shimmer that
+   reads as the screen "vibrating". Images keep the subtle zoom. */
+video.hero-slide__visual {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  animation: none !important;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-slide.is-active img.hero-slide__visual {
+    animation: kenburns 9s ease-out forwards;
+  }
+}
+@keyframes kenburns {
+  from {
+    transform: scale(1.03);
+  }
+  to {
+    transform: scale(1.12);
+  }
+}
+.hero-slide__copy {
+  transform: translateY(14px);
+  opacity: 0;
+}
+.hero-slide.is-active .hero-slide__copy {
+  transform: translateY(0);
+  opacity: 1;
+  transition: opacity 0.7s ease 0.15s, transform 0.7s ease 0.15s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-slide__copy,
+  .hero-slide.is-active .hero-slide__copy {
+    transform: none;
+    opacity: 1;
+    transition: none;
+  }
+}
+
+.dot {
+  height: 0.4rem;
+  width: 1.5rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  transition: width 0.4s ease, background 0.4s ease;
+  cursor: pointer;
+}
+.dot.is-active {
+  width: 2.5rem;
+  background: #ffffff;
+}
+
+/* ------------------------------------------------------------------ *
+ *  StarBorder — a star gradient travels along the pill border
+ *  (adapted from reactbits.dev). Colour + speed set per-instance.
+ * ------------------------------------------------------------------ */
+.star-border {
+  display: inline-block;
+  position: relative;
+  border-radius: 999px;
+  overflow: hidden;
+  padding: 1.5px 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.star-border__glow {
+  position: absolute;
+  width: 300%;
+  height: 50%;
+  border-radius: 50%;
+  z-index: 0;
+  opacity: 0.7;
+  pointer-events: none;
+}
+.star-border__glow--bottom {
+  bottom: -11px;
+  right: -250%;
+}
+.star-border__glow--top {
+  top: -11px;
+  left: -250%;
+}
+.star-border__inner {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  padding: 0.85rem 1.7rem;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: var(--color-ink);
+  background: rgba(10, 12, 19, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .star-border__glow--bottom {
+    animation: starMoveBottom linear infinite alternate;
+  }
+  .star-border__glow--top {
+    animation: starMoveTop linear infinite alternate;
+  }
+}
+@keyframes starMoveBottom {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(-100%, 0);
+  }
+}
+@keyframes starMoveTop {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(100%, 0);
+  }
 }

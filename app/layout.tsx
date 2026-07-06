@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Inter } from "next/font/google";
+import { Space_Grotesk, Urbanist } from "next/font/google";
 import "./globals.css";
 import LiquidChrome from "@/components/liquid-chrome";
 
@@ -9,8 +9,8 @@ const spaceGrotesk = Space_Grotesk({
   display: "swap",
 });
 
-const inter = Inter({
-  variable: "--font-inter",
+const urbanist = Urbanist({
+  variable: "--font-urbanist",
   subsets: ["latin"],
   display: "swap",
 });
@@ -47,7 +47,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${inter.variable} h-full antialiased`}
+      className={`${spaceGrotesk.variable} ${urbanist.variable} h-full antialiased`}
     >
       <body className="min-h-full">
         <LiquidChrome />

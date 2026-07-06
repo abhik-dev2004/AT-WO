@@ -9,7 +9,8 @@
 @theme inline {
   --font-display: var(--font-space-grotesk), "Space Grotesk", ui-sans-serif,
     system-ui, sans-serif;
-  --font-sans: var(--font-inter), "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-urbanist), "Urbanist", ui-sans-serif, system-ui,
+    sans-serif;
 }
 
 @theme {
@@ -467,9 +468,9 @@ body {
     /* Gradient radiates from the middle: bright core → base → soft edge. */
     background-image: radial-gradient(
       115% 135% at 50% 50%,
-      color-mix(in srgb, var(--c) 60%, #fff 40%) 0%,
-      var(--c) 46%,
-      color-mix(in srgb, var(--c) 70%, #000 30%) 100%
+      color-mix(in srgb, var(--c) 74%, #fff 26%) 0%,
+      color-mix(in srgb, var(--c) 90%, #000 10%) 46%,
+      color-mix(in srgb, var(--c) 56%, #000 44%) 100%
     );
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5),
       inset 0 -6px 14px -10px rgba(0, 0, 0, 0.45),
@@ -600,7 +601,8 @@ body {
    animating a scale on a decoding <video> causes subpixel shimmer that
    reads as the screen "vibrating". Images keep the subtle zoom. */
 video.hero-slide__visual {
-  transform: translateZ(0);
+  /* Zoomed in to crop the AI watermark out of frame. */
+  transform: scale(1.32) translateZ(0);
   backface-visibility: hidden;
   animation: none !important;
 }

@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import { ChevronDown, Menu, X, ArrowRight } from "lucide-react";
 
 const NAV = [
-  { label: "Services", href: "#services", caret: true },
-  { label: "About", href: "#about", caret: false },
-  { label: "Work", href: "#work", caret: false },
+  { label: "Services", href: "/#services", caret: true },
+  { label: "About", href: "/about", caret: false },
+  { label: "Work", href: "/#work", caret: false },
 ];
 
 export default function SiteHeader() {
@@ -30,7 +30,7 @@ export default function SiteHeader() {
             : "border border-white/10 bg-[#080a12]/35 backdrop-blur-lg"
         }`}
       >
-        <a href="#top" className="flex items-center gap-2.5 shrink-0">
+        <a href="/" className="flex items-center gap-2.5 shrink-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/logo.png" alt="Abstract Techvisions" className="h-7 w-auto" />
           <span className="font-display text-[0.98rem] font-semibold tracking-tight text-ink">
@@ -56,7 +56,7 @@ export default function SiteHeader() {
 
         <div className="flex items-center gap-2">
           <a
-            href="#contact"
+            href="/#contact"
             className="btn btn-glass hidden !py-2.5 !px-4 text-sm md:inline-flex"
           >
             Let&rsquo;s Connect
@@ -69,7 +69,7 @@ export default function SiteHeader() {
               aria-label={open ? "Close menu" : "Open menu"}
               aria-expanded={open}
               onClick={() => setOpen((v) => !v)}
-              className="btn btn-glass !p-2.5"
+              className="glass inline-flex items-center justify-center rounded-full p-2.5 text-ink transition-colors"
             >
               {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
@@ -80,7 +80,7 @@ export default function SiteHeader() {
       {/* Mobile sheet */}
       {open && (
         <div className="absolute inset-x-4 top-[4.75rem] z-50 md:hidden">
-          <div className="flex flex-col gap-1 rounded-3xl border border-white/12 bg-[#080a12]/90 p-3 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.9)] backdrop-blur-2xl">
+          <div className="flex flex-col gap-1 rounded-3xl border border-white/12 bg-[#0a0c14]/97 p-3 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.9)] backdrop-blur-2xl backdrop-saturate-150">
             {NAV.map((item) => (
               <a
                 key={item.label}
@@ -92,9 +92,9 @@ export default function SiteHeader() {
               </a>
             ))}
             <a
-              href="#contact"
+              href="/#contact"
               onClick={() => setOpen(false)}
-              className="btn btn-primary mt-1 w-full"
+              className="btn btn-glass mt-1 w-full justify-center"
             >
               Let&rsquo;s Connect
               <ArrowRight className="h-4 w-4" />

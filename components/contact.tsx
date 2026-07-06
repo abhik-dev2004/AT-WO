@@ -171,7 +171,8 @@ export default function Contact() {
               <div className="flex justify-center">
                 <GlowButton
                   type="submit"
-                  text={status === "submitting" ? "Sending…" : "Send message"}
+                  color="#d23a48"
+                  text={status === "submitting" ? "Sending…" : "Let’s Connect"}
                   disabled={status === "submitting"}
                   className="w-full sm:w-auto"
                   icon={

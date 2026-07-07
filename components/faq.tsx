@@ -7,7 +7,7 @@ import Reveal from "./reveal";
 type Item = { q: string; a: string };
 
 export default function Faq({ items }: { items: Item[] }) {
-  const [open, setOpen] = useState<number | null>(0);
+  const [open, setOpen] = useState<number | null>(null);
 
   return (
     <div className="flex flex-col gap-3">

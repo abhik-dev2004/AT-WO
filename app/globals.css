@@ -651,6 +651,89 @@ video.hero-slide__visual {
 }
 
 /* ------------------------------------------------------------------ *
+ *  How-we-work timeline — a light travels the connector lines and each
+ *  step's card border glows very faintly in sequence (--delay per step).
+ * ------------------------------------------------------------------ */
+.timeline-line {
+  position: relative;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+}
+
+@keyframes chevronBob {
+  0%,
+  100% {
+    transform: translateY(-3px);
+    opacity: 0.45;
+  }
+  50% {
+    transform: translateY(3px);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .timeline-chevron {
+    animation: chevronBob 2.4s ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+  }
+}
+@keyframes lineTravel {
+  0% {
+    top: -45%;
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+@keyframes cardGlowPulse {
+  0%,
+  100% {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4),
+      inset -1.5px -1.5px 0 rgba(255, 255, 255, 0.07),
+      0 30px 70px -34px rgba(0, 0, 0, 0.9);
+  }
+  50% {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5),
+      0 0 0 1px rgba(150, 175, 255, 0.32),
+      0 0 20px -6px rgba(150, 175, 255, 0.28),
+      0 30px 70px -34px rgba(0, 0, 0, 0.9);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .timeline-line::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: -45%;
+    height: 45%;
+    width: 3px;
+    transform: translateX(-50%);
+    border-radius: 999px;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      rgba(150, 175, 255, 0.85),
+      transparent
+    );
+    animation: lineTravel 4s ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+  }
+  .timeline-card {
+    animation: cardGlowPulse 4s ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+  }
+}
+
+/* ------------------------------------------------------------------ *
  *  StarBorder — a star gradient travels along the pill border
  *  (adapted from reactbits.dev). Colour + speed set per-instance.
  * ------------------------------------------------------------------ */

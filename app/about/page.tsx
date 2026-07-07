@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
-import { ArrowRight, Compass, Sprout, Rocket } from "lucide-react";
+import { Fragment } from "react";
+import { ArrowRight, ChevronDown, Compass, Sprout, Rocket } from "lucide-react";
 import SiteHeader from "@/components/site-header";
 import SiteFooter from "@/components/site-footer";
 import Reveal from "@/components/reveal";
 import GlowButton from "@/components/glow-button";
 import Faq from "@/components/faq";
+import CountUp from "@/components/count-up";
 
 export const metadata: Metadata = {
   title: "About",
@@ -55,13 +57,15 @@ const PROCESS = [
 
 const IMPACT = [
   {
-    value: "28+",
+    num: 28,
+    suffix: "+",
     label: "Industries served",
     body: "Our dual-core model gives us the range to move across sectors with precision, translating deep cross-industry knowledge into approaches that are always built around your specific business.",
     key: "rgba(255,77,99,0.9)",
   },
   {
-    value: "94",
+    num: 94,
+    suffix: "",
     label: "Net Promoter Score",
     body: "We treat client success as a long-term commitment, not a project milestone. We monitor, maintain, and evolve what we build, and we do it without passing unnecessary costs onto you.",
     key: "rgba(52,226,234,0.9)",
@@ -97,9 +101,9 @@ export default function AboutPage() {
       <SiteHeader />
       <main>
         {/* Hero */}
-        <section id="top" className="relative pt-32 sm:pt-36">
+        <section id="top" className="relative pt-24 sm:pt-28">
           <div className="mx-auto max-w-[88rem] px-6">
-            <div className="card relative flex min-h-[44rem] items-center overflow-hidden sm:min-h-[40rem]">
+            <div className="card relative flex min-h-[42rem] items-center overflow-hidden sm:min-h-[34rem] lg:min-h-[38rem]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/charlesdeluvio-Lks7vei-eAg-unsplash.jpg"
@@ -131,7 +135,7 @@ export default function AboutPage() {
         {/* Founding story */}
         <section className="mx-auto mt-24 max-w-[88rem] px-6 sm:mt-36">
           <div className="grid items-stretch gap-6 md:grid-cols-[1fr_auto_1fr]">
-            <Reveal as="article" className="card flex flex-col p-8">
+            <Reveal as="article" className="card card-hover flex flex-col p-8">
               <h2 className="font-display text-xl font-semibold tracking-tight">
                 The reality we walked into
               </h2>
@@ -163,7 +167,7 @@ export default function AboutPage() {
               </span>
             </div>
 
-            <Reveal as="article" delay={120} className="card flex flex-col p-8">
+            <Reveal as="article" delay={120} className="card card-hover flex flex-col p-8">
               <h2 className="font-display text-xl font-semibold tracking-tight">
                 The company we built in response
               </h2>
@@ -219,26 +223,40 @@ export default function AboutPage() {
             </h2>
           </Reveal>
           <div className="mt-12 flex flex-col gap-4">
-            {PROCESS.map((step, i) => (
-              <Reveal
-                as="article"
-                key={step.n}
-                delay={i * 90}
-                className="card flex gap-5 p-6 sm:gap-6 sm:p-7"
-              >
-                <span className="font-display grid h-11 w-11 shrink-0 place-items-center rounded-full border border-white/15 bg-white/5 text-lg font-semibold text-ink">
-                  {step.n}
-                </span>
-                <div>
-                  <h3 className="font-display text-lg font-semibold tracking-tight">
-                    {step.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-ink-muted">
-                    {step.body}
-                  </p>
-                </div>
-              </Reveal>
-            ))}
+            {PROCESS.map((step, i) => {
+              const last = i === PROCESS.length - 1;
+              return (
+                <Fragment key={step.n}>
+                  <Reveal as="div" delay={i * 90}>
+                    <div
+                      className="card timeline-card flex gap-5 p-6 sm:gap-6 sm:p-7"
+                      style={{ ["--delay" as string]: `${i * 0.6}s` }}
+                    >
+                      <span className="font-display grid h-11 w-11 shrink-0 place-items-center rounded-full border border-white/15 bg-white/5 text-lg font-semibold text-ink">
+                        {step.n}
+                      </span>
+                      <div>
+                        <h3 className="font-display text-lg font-semibold tracking-tight">
+                          {step.title}
+                        </h3>
+                        <p className="mt-2 text-sm leading-relaxed text-ink-muted">
+                          {step.body}
+                        </p>
+                      </div>
+                    </div>
+                  </Reveal>
+                  {/* down chevron between steps (arrowhead only, no tail) */}
+                  {!last && (
+                    <div aria-hidden className="flex justify-center">
+                      <ChevronDown
+                        className="timeline-chevron h-6 w-6 text-ink-subtle"
+                        style={{ ["--delay" as string]: `${i * 0.3}s` }}
+                      />
+                    </div>
+                  )}
+                </Fragment>
+              );
+            })}
           </div>
         </section>
 
@@ -247,7 +265,9 @@ export default function AboutPage() {
           <div className="grid gap-12 md:grid-cols-2 md:gap-16">
             {IMPACT.map((stat, i) => (
               <Reveal as="div" key={stat.label} delay={i * 100} className="text-center">
-                <span
+                <CountUp
+                  value={stat.num}
+                  suffix={stat.suffix}
                   className="font-display text-6xl font-semibold tracking-tight tabular-nums sm:text-7xl"
                   style={{
                     background: `radial-gradient(120% 120% at 50% 0%, #fff, ${stat.key})`,
@@ -255,9 +275,7 @@ export default function AboutPage() {
                     backgroundClip: "text",
                     color: "transparent",
                   }}
-                >
-                  {stat.value}
-                </span>
+                />
                 <p className="mt-3 font-display text-lg font-semibold tracking-tight">
                   {stat.label}
                 </p>
@@ -319,7 +337,12 @@ export default function AboutPage() {
             <h2 className="font-display text-3xl font-semibold leading-tight tracking-tight sm:text-[2.8rem]">
               The transformation starts when you do
             </h2>
-            <GlowButton text="Let’s Connect" href="/#contact" color="#d23a48" />
+            <GlowButton
+              text="Let’s Connect"
+              href="/#contact"
+              color="#d23a48"
+              icon={<ArrowRight className="h-4 w-4" />}
+            />
           </Reveal>
         </section>
       </main>

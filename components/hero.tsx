@@ -85,10 +85,10 @@ export default function Hero() {
   }, [paused, active]);
 
   return (
-    <section id="top" className="relative pt-32 sm:pt-36">
+    <section id="top" className="relative pt-24 sm:pt-28">
       <div className="mx-auto max-w-[88rem] px-6">
         <div
-          className="card relative min-h-[40rem] overflow-hidden sm:min-h-[34rem] lg:min-h-[38rem]"
+          className="card relative min-h-[42rem] overflow-hidden sm:min-h-[34rem] lg:min-h-[38rem]"
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
           onFocusCapture={() => setPaused(true)}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { Loader2, CheckCircle2, Sparkles } from "lucide-react";
+import { Loader2, CheckCircle2, Sparkles, ArrowRight } from "lucide-react";
 import Reveal from "./reveal";
 import GlowButton from "./glow-button";
 
@@ -178,7 +178,9 @@ export default function Contact() {
                   icon={
                     status === "submitting" ? (
                       <Loader2 className="h-4 w-4 animate-spin" />
-                    ) : undefined
+                    ) : (
+                      <ArrowRight className="h-4 w-4" />
+                    )
                   }
                 />
               </div>

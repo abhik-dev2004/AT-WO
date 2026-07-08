@@ -33,7 +33,7 @@ const SLIDES: Slide[] = [
     media: {
       type: "video",
       src: "/alt_1.mp4",
-      mobileSrc: "/joshua-sun-brq6r83uD8U-unsplash.jpg",
+      mobileSrc: "/sable-flow-_ZojfXxQ0vw-unsplash.jpg",
     },
     visual:
       "radial-gradient(50% 60% at 18% 30%, rgba(255,77,99,0.55), transparent 60%), radial-gradient(55% 70% at 85% 22%, rgba(52,226,234,0.45), transparent 60%), radial-gradient(75% 90% at 60% 105%, rgba(163,116,255,0.55), transparent 60%)",
@@ -112,9 +112,9 @@ export default function Hero() {
                 <div className="absolute inset-0" style={{ background: slide.visual }} />
                 {slide.media.type === "video" ? (
                   <>
-                    {/* video on tablet/desktop, image on mobile */}
+                    {/* video on desktop only; image on mobile + tablet (both orientations) */}
                     <video
-                      className="hero-slide__visual hidden h-full w-full object-cover sm:block"
+                      className="hero-slide__visual hidden h-full w-full object-cover xl:block"
                       src={slide.media.src}
                       autoPlay
                       muted
@@ -125,7 +125,7 @@ export default function Hero() {
                     {slide.media.mobileSrc && (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img
-                        className="hero-slide__visual h-full w-full object-cover sm:hidden"
+                        className="hero-slide__visual h-full w-full object-cover xl:hidden"
                         src={slide.media.mobileSrc}
                         alt=""
                       />

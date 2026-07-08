@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { ChevronDown, Menu, X, ArrowRight } from "lucide-react";
+import GlowButton from "./glow-button";
 
 const NAV = [
   { label: "Services", href: "/#services", caret: true },
@@ -55,13 +56,13 @@ export default function SiteHeader() {
         </ul>
 
         <div className="flex items-center gap-2">
-          <a
+          <GlowButton
             href="/#contact"
-            className="btn btn-glass hidden !py-2.5 !px-4 text-sm md:inline-flex"
-          >
-            Let&rsquo;s Connect
-            <ArrowRight className="h-4 w-4" />
-          </a>
+            color="#d23a48"
+            text="Let’s Connect"
+            icon={<ArrowRight className="h-4 w-4" />}
+            className="hidden !px-4 !py-2.5 !text-sm md:inline-flex"
+          />
           {/* Mobile-only menu toggle */}
           <div className="md:hidden">
             <button

@@ -12,6 +12,7 @@ type GlowButtonProps = {
   type?: "button" | "submit";
   disabled?: boolean;
   className?: string;
+  onClick?: () => void;
   /** Optional trailing icon (e.g. a loading spinner); none by default */
   icon?: ReactNode;
 };
@@ -27,6 +28,7 @@ export default function GlowButton({
   type = "button",
   disabled,
   className = "",
+  onClick,
   icon,
 }: GlowButtonProps) {
   const style = { ["--c" as string]: color } as CSSProperties;
@@ -40,14 +42,20 @@ export default function GlowButton({
 
   if (href) {
     return (
-      <a href={href} style={style} className={cls}>
+      <a href={href} style={style} className={cls} onClick={onClick}>
         {content}
       </a>
     );
   }
 
   return (
-    <button type={type} style={style} className={cls} disabled={disabled}>
+    <button
+      type={type}
+      style={style}
+      className={cls}
+      disabled={disabled}
+      onClick={onClick}
+    >
       {content}
     </button>
   );

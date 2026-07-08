@@ -92,14 +92,14 @@ export default function SiteHeader() {
                 {item.label}
               </a>
             ))}
-            <a
+            <GlowButton
               href="/#contact"
+              color="#d23a48"
+              text="Let’s Connect"
+              icon={<ArrowRight className="h-4 w-4" />}
               onClick={() => setOpen(false)}
-              className="btn btn-glass mt-1 w-full justify-center"
-            >
-              Let&rsquo;s Connect
-              <ArrowRight className="h-4 w-4" />
-            </a>
+              className="mt-1 w-full !text-sm"
+            />
           </div>
         </div>
       )}

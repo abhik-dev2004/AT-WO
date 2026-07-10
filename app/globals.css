@@ -158,6 +158,29 @@ body {
   }
 }
 
+/* Soft coloured bloom around gradient/clipped text — drop-shadow works
+   where text-shadow can't (the fill is transparent). */
+.text-glow {
+  filter: drop-shadow(0 0 14px rgba(163, 116, 255, 0.55))
+    drop-shadow(0 0 34px rgba(80, 140, 255, 0.35));
+}
+@media (prefers-reduced-motion: no-preference) {
+  .text-glow {
+    animation: textGlowPulse 4.5s ease-in-out infinite;
+  }
+}
+@keyframes textGlowPulse {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 10px rgba(163, 116, 255, 0.4))
+      drop-shadow(0 0 26px rgba(80, 140, 255, 0.25));
+  }
+  50% {
+    filter: drop-shadow(0 0 18px rgba(163, 116, 255, 0.7))
+      drop-shadow(0 0 42px rgba(80, 140, 255, 0.45));
+  }
+}
+
 /* ------------------------------------------------------------------ *
  *  Glassmorphism cards + hairline refraction
  * ------------------------------------------------------------------ */

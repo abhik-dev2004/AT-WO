@@ -106,7 +106,7 @@ export default function AboutPage() {
             <div className="card relative flex min-h-[42rem] items-center overflow-hidden sm:min-h-[34rem] lg:min-h-[38rem]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/charlesdeluvio-Lks7vei-eAg-unsplash.jpg"
+                src="/andrius-budrikas-98uR9diNLXc-unsplash.jpg"
                 alt=""
                 className="absolute inset-0 h-full w-full object-cover opacity-70"
               />
@@ -296,12 +296,14 @@ export default function AboutPage() {
           </Reveal>
           <Reveal delay={100} className="mt-10">
             <blockquote className="mx-auto max-w-4xl text-center">
-              <p className="font-display text-xl font-medium leading-[1.5] tracking-tight sm:text-2xl">
+              <p className="font-sans text-xl font-normal leading-[1.5] tracking-tight sm:text-2xl">
                 <span aria-hidden className="text-gradient">
                   &ldquo;
                 </span>
                 The next chapter for Abstract Techvisions is fully about{" "}
-                <span className="text-gradient">our clients&rsquo; scalability</span>
+                <span className="text-gradient text-glow font-bold italic">
+                  our clients&rsquo; scalability
+                </span>
                 . We&rsquo;re developing the infrastructure and strategy to take
                 businesses from transformation into permanent market leadership.
                 We&rsquo;re moving toward a future where unified digital

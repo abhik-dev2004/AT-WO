@@ -54,7 +54,7 @@ const SLIDES: Slide[] = [
     em: "one synchronized system",
     post: " that changed their entire trajectory",
     cta: "See How We Did It",
-    href: "#work",
+    href: "#customer",
     glow: "#e0692e",
     media: { type: "image", src: "/charlesdeluvio-Lks7vei-eAg-unsplash.jpg" },
     visual:
@@ -112,9 +112,9 @@ export default function Hero() {
                 <div className="absolute inset-0" style={{ background: slide.visual }} />
                 {slide.media.type === "video" ? (
                   <>
-                    {/* video on desktop only; image on mobile + tablet (both orientations) */}
+                    {/* video on desktop only; image on mobile + tablet */}
                     <video
-                      className="hero-slide__visual hidden h-full w-full object-cover xl:block"
+                      className="hero-slide__visual hidden h-full w-full object-cover lg:block"
                       src={slide.media.src}
                       autoPlay
                       muted
@@ -125,7 +125,7 @@ export default function Hero() {
                     {slide.media.mobileSrc && (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img
-                        className="hero-slide__visual h-full w-full object-cover xl:hidden"
+                        className="hero-slide__visual h-full w-full object-cover lg:hidden"
                         src={slide.media.mobileSrc}
                         alt=""
                       />

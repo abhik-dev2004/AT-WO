@@ -54,7 +54,7 @@ const TESTIMONIALS = [
 
 export default function CaseStudies() {
   return (
-    <section id="work" className="mx-auto mt-28 max-w-[88rem] px-6 sm:mt-40">
+    <section id="customer" className="mx-auto mt-28 max-w-[88rem] px-6 sm:mt-40">
       <Reveal className="max-w-4xl">
         <h2 className="font-display text-3xl font-semibold leading-tight tracking-tight sm:text-[2.6rem]">
           What it looks like when growth is done right
@@ -101,7 +101,7 @@ export default function CaseStudies() {
 
       {/* Read More */}
       <Reveal className="mt-10 flex justify-center">
-        <StarBorder text="Read More" href="#work" color="#a374ff" speed="5s" />
+        <StarBorder text="Read More" href="#customer" color="#a374ff" speed="5s" />
       </Reveal>
 
       {/* Client testimonials */}

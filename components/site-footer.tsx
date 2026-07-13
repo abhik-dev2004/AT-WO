@@ -33,6 +33,11 @@ const COLUMNS = [
   },
 ];
 
+const LINK_HREFS: Record<string, string> = {
+  Sitemap: "/sitemap.xml",
+  "Digital Advertising": "/services/digital-advertising",
+};
+
 const SOCIAL = [
   { label: "Abstract Techvisions on X", Icon: XIcon },
   { label: "Abstract Techvisions on LinkedIn", Icon: LinkedInIcon },
@@ -53,7 +58,7 @@ export default function SiteFooter() {
                 {col.links.map((link) => (
                   <li key={link}>
                     <a
-                      href="#"
+                      href={LINK_HREFS[link] ?? "#"}
                       className="text-sm text-ink-muted transition-colors hover:text-ink"
                     >
                       {link}

@@ -96,7 +96,7 @@ export default function SiteHeader() {
 
         <div className="flex items-center gap-2">
           <GlowButton
-            href="/#contact"
+            href="/contact"
             color="#d23a48"
             text="Let’s Connect"
             icon={<ArrowRight className="h-4 w-4" />}
@@ -215,7 +215,7 @@ export default function SiteHeader() {
               </a>
             ))}
             <GlowButton
-              href="/#contact"
+              href="/contact"
               color="#d23a48"
               text="Let’s Connect"
               icon={<ArrowRight className="h-4 w-4" />}

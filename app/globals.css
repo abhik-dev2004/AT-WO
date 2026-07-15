@@ -208,6 +208,35 @@ body {
   }
 }
 
+/* Auto-scrolling anchor nav (marquee). Two identical copies translate by
+   -50% for a seamless loop; pauses on hover so links stay clickable. */
+.nav-scroll {
+  scrollbar-width: none;
+}
+.nav-scroll::-webkit-scrollbar {
+  display: none;
+}
+@keyframes navMarquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.nav-marquee {
+  animation: navMarquee 16s linear infinite;
+}
+.nav-marquee:hover,
+.nav-marquee:focus-within {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-marquee {
+    animation: none;
+  }
+}
+
 /* ------------------------------------------------------------------ *
  *  Glassmorphism cards + hairline refraction
  * ------------------------------------------------------------------ */

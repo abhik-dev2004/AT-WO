@@ -202,18 +202,32 @@ export default function DigitalAdvertisingPage() {
           className="sticky top-24 z-30 mt-16 sm:mt-20"
         >
           <div className="mx-auto max-w-[88rem] px-6">
-            <ul className="glass mx-auto flex w-fit max-w-full items-center gap-1 overflow-x-auto rounded-full px-2 py-2">
-              {NAV.map((item) => (
-                <li key={item.href} className="shrink-0">
-                  <a
-                    href={item.href}
-                    className="inline-flex whitespace-nowrap rounded-full px-4 py-2 text-sm text-ink-muted transition-colors hover:bg-white/5 hover:text-ink"
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            <div className="nav-scroll glass mx-auto max-w-full overflow-x-auto rounded-full px-2 py-2 md:w-fit">
+              <ul className="nav-marquee flex w-max items-center gap-1 md:w-full md:animate-none md:justify-center">
+                {NAV.map((item) => (
+                  <li key={item.href} className="shrink-0">
+                    <a
+                      href={item.href}
+                      className="inline-flex whitespace-nowrap rounded-full px-4 py-2 text-sm text-ink-muted transition-colors hover:bg-white/5 hover:text-ink"
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+                {/* Duplicate set — seamless marquee loop on narrow screens only */}
+                {NAV.map((item) => (
+                  <li key={`dup-${item.href}`} aria-hidden className="shrink-0 md:hidden">
+                    <a
+                      href={item.href}
+                      tabIndex={-1}
+                      className="inline-flex whitespace-nowrap rounded-full px-4 py-2 text-sm text-ink-muted transition-colors hover:bg-white/5 hover:text-ink"
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </nav>
 
@@ -289,7 +303,7 @@ export default function DigitalAdvertisingPage() {
           </Reveal>
 
           {/* Stacked — mobile / tablet */}
-          <div className="mt-12 grid gap-6 sm:grid-cols-3 lg:hidden">
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:hidden">
             {PRINCIPLES.map((p, i) => {
               const Icon = p.icon;
               return (

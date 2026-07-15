@@ -199,7 +199,7 @@ export default function DigitalAdvertisingPage() {
         {/* Anchor navigation */}
         <nav
           aria-label="On this page"
-          className="sticky top-24 z-30 mt-16 sm:mt-20"
+          className="mt-16 sm:mt-20"
         >
           <div className="mx-auto max-w-[88rem] px-6">
             <div className="nav-scroll glass mx-auto max-w-full overflow-x-auto rounded-full px-2 py-2 lg:w-fit">

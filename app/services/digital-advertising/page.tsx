@@ -385,7 +385,7 @@ export default function DigitalAdvertisingPage() {
         <section id="team" className="mx-auto mt-28 max-w-5xl px-6 text-center scroll-mt-40 sm:mt-40">
           <Reveal>
             <blockquote className="mx-auto max-w-4xl">
-              <p className="font-display text-xl font-medium leading-[1.5] tracking-tight sm:text-2xl">
+              <p className="font-sans text-xl font-medium leading-[1.5] tracking-tight sm:text-2xl">
                 <span aria-hidden className="text-gradient">
                   &ldquo;
                 </span>

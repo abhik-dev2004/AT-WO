@@ -224,16 +224,14 @@ body {
     transform: translateX(-50%);
   }
 }
-.nav-marquee {
-  animation: navMarquee 16s linear infinite;
-}
-.nav-marquee:hover,
-.nav-marquee:focus-within {
-  animation-play-state: paused;
-}
-@media (prefers-reduced-motion: reduce) {
+/* Marquee only on mobile + tablet (< lg); desktop shows the row static. */
+@media (max-width: 1023.98px) and (prefers-reduced-motion: no-preference) {
   .nav-marquee {
-    animation: none;
+    animation: navMarquee 16s linear infinite;
+  }
+  .nav-marquee:hover,
+  .nav-marquee:focus-within {
+    animation-play-state: paused;
   }
 }
 

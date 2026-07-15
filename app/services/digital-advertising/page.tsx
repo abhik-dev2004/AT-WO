@@ -169,7 +169,7 @@ export default function DigitalAdvertisingPage() {
         {/* Stats band */}
         <section className="mx-auto mt-20 max-w-[88rem] px-6 sm:mt-28">
           <Reveal>
-            <dl className="grid gap-x-8 gap-y-10 md:grid-cols-3">
+            <dl className="grid gap-x-8 gap-y-10 text-center md:grid-cols-3 lg:text-left">
               {STATS.map((stat, i) => (
                 <Reveal as="div" key={stat.body} delay={i * 90}>
                   <dt className="sr-only">{stat.body}</dt>
@@ -186,7 +186,7 @@ export default function DigitalAdvertisingPage() {
                         color: "transparent",
                       }}
                     />
-                    <p className="mt-3 max-w-xs text-sm leading-relaxed text-ink-muted">
+                    <p className="mx-auto mt-3 max-w-xs text-sm leading-relaxed text-ink-muted lg:mx-0">
                       {stat.body}
                     </p>
                   </dd>
@@ -202,8 +202,8 @@ export default function DigitalAdvertisingPage() {
           className="sticky top-24 z-30 mt-16 sm:mt-20"
         >
           <div className="mx-auto max-w-[88rem] px-6">
-            <div className="nav-scroll glass mx-auto max-w-full overflow-x-auto rounded-full px-2 py-2 md:w-fit">
-              <ul className="nav-marquee flex w-max items-center gap-1 md:w-full md:animate-none md:justify-center">
+            <div className="nav-scroll glass mx-auto max-w-full overflow-x-auto rounded-full px-2 py-2 lg:w-fit">
+              <ul className="nav-marquee flex w-max items-center gap-1 lg:w-full lg:justify-center">
                 {NAV.map((item) => (
                   <li key={item.href} className="shrink-0">
                     <a
@@ -216,7 +216,7 @@ export default function DigitalAdvertisingPage() {
                 ))}
                 {/* Duplicate set — seamless marquee loop on narrow screens only */}
                 {NAV.map((item) => (
-                  <li key={`dup-${item.href}`} aria-hidden className="shrink-0 md:hidden">
+                  <li key={`dup-${item.href}`} aria-hidden className="shrink-0 lg:hidden">
                     <a
                       href={item.href}
                       tabIndex={-1}

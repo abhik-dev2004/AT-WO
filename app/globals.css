@@ -181,32 +181,111 @@ body {
   }
 }
 
-/* Core-principles triangle: strokes draw themselves in, then softly pulse. */
-@keyframes triDraw {
-  to {
+/* Core-principles triangle: outline stays invisible; a single light beam
+   travels the path. pathLength=100 normalises the perimeter, so a 7/93
+   dash renders exactly one beam that loops around the whole triangle. */
+/* Travels in reverse. Each dash runs forward from its start, so going
+   backwards makes that start the leading edge — every layer shares one
+   offset, heads coincide, and the longer faint layers trail as the tail. */
+@keyframes beamTravel {
+  from {
     stroke-dashoffset: 0;
   }
+  to {
+    stroke-dashoffset: 100;
+  }
 }
-@keyframes triPulse {
+.tri-beam {
+  animation: beamTravel 7s linear infinite;
+}
+/* Bloom lives on the <svg>, not its children: CSS filter lengths inside an
+   SVG resolve in user units, which the viewBox would scale up ~7.7x. */
+.beam-glow {
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 1))
+    drop-shadow(0 0 6px rgba(255, 255, 255, 0.85))
+    drop-shadow(0 0 14px rgba(163, 116, 255, 0.9))
+    drop-shadow(0 0 28px rgba(123, 92, 255, 0.6));
+}
+
+/* Each node flares as the beam reaches it. Edges are unequal (top = 60 units,
+   sides ~40.4), and travel is reversed, so arrival within the 7s lap is:
+   top-left 0s, bottom ~2.01s, top-right ~4.02s — set via --node-delay. */
+@keyframes nodeGlow {
   0%,
+  20%,
   100% {
-    opacity: 0.5;
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+    border-color: rgba(255, 255, 255, 0.12);
   }
-  50% {
-    opacity: 1;
+  4% {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.9),
+      0 0 26px 4px rgba(255, 255, 255, 0.8),
+      0 0 56px 12px rgba(255, 255, 255, 0.35),
+      0 0 90px 20px rgba(163, 116, 255, 0.5);
+    border-color: rgba(255, 255, 255, 0.9);
   }
 }
-.tri-line {
-  stroke-dasharray: 100;
-  stroke-dashoffset: 100;
-  animation: triDraw 2.2s ease forwards 0.2s, triPulse 5s ease-in-out infinite 2.4s;
+.tri-node {
+  animation: nodeGlow 7s linear infinite;
+  animation-delay: var(--node-delay, 0s);
+}
+/* Opaque fill so the travelling beam is occluded — it slides behind the icon
+   and vanishes rather than showing through .glass's translucent frost.
+   .glass is declared later in this file, so this needs the higher
+   specificity of two classes to win. */
+.tri-node.glass {
+  background: #0a0c14;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 @media (prefers-reduced-motion: reduce) {
-  .tri-line {
+  .tri-beam,
+  .tri-node {
     animation: none;
-    stroke-dashoffset: 0;
   }
 }
+
+/* Team avatars orbiting the heading. The ring spins; the avatar counter-spins
+   at the same rate so it stays upright. Negative delays (--orbit-delay)
+   stagger them evenly around the circle. */
+@keyframes orbitSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes orbitCounter {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+.orbit {
+  position: absolute;
+  inset: 0;
+  animation: orbitSpin 26s linear infinite;
+  animation-delay: var(--orbit-delay, 0s);
+}
+.orbit-counter {
+  animation: orbitCounter 26s linear infinite;
+  animation-delay: var(--orbit-delay, 0s);
+}
+/* Without motion the delays can't stagger them, so place each statically. */
+@media (prefers-reduced-motion: reduce) {
+  .orbit {
+    animation: none;
+    transform: rotate(var(--orbit-angle, 0deg));
+  }
+  .orbit-counter {
+    animation: none;
+    transform: rotate(calc(var(--orbit-angle, 0deg) * -1));
+  }
+}
+
 
 /* Auto-scrolling anchor nav (marquee). Two identical copies translate by
    -50% for a seamless loop; pauses on hover so links stay clickable. */

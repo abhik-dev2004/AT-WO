@@ -6,6 +6,7 @@ import {
   Megaphone,
   Cpu,
   LineChart,
+  UserRound,
   type LucideIcon,
 } from "lucide-react";
 import SiteHeader from "@/components/site-header";
@@ -118,10 +119,21 @@ const PROCESS = [
   },
 ];
 
+// Icon matches the role; evenly spaced around the 26s orbit: 0°, 120°, 240°
 const TEAM = [
-  { icon: Megaphone, role: "Advertising Strategist" },
-  { icon: Cpu, role: "Technology Lead" },
-  { icon: LineChart, role: "Paid Media Specialist" },
+  {
+    icon: Megaphone,
+    role: "Advertising Strategist",
+    delay: "0s",
+    angle: "0deg",
+  },
+  { icon: Cpu, role: "Technology Lead", delay: "-8.667s", angle: "120deg" },
+  {
+    icon: LineChart,
+    role: "Paid Media Specialist",
+    delay: "-17.333s",
+    angle: "240deg",
+  },
 ];
 
 export default function DigitalAdvertisingPage() {
@@ -233,59 +245,72 @@ export default function DigitalAdvertisingPage() {
 
         {/* Core Principles */}
         <section id="principles" className="mx-auto mt-28 max-w-[88rem] px-6 scroll-mt-40 sm:mt-40">
-          <Reveal>
+          {/* On desktop the heading sits inside the triangle instead */}
+          <Reveal className="text-center lg:hidden">
             <h2 className="font-display text-3xl font-semibold leading-tight tracking-tight sm:text-[2.6rem]">
               Core Principles
             </h2>
           </Reveal>
 
-          {/* Triangle diagram — desktop */}
-          <Reveal className="relative mx-auto mt-14 hidden h-[30rem] max-w-3xl lg:block">
+          {/* Inverted triangle diagram — desktop */}
+          <Reveal className="relative mx-auto mt-10 hidden h-[42rem] max-w-4xl lg:block">
+            {/* viewBox matches the container's 4:3 box (896x672) so scaling is
+                uniform — required for pathLength to yield exactly one dash. */}
             <svg
-              viewBox="0 0 100 100"
-              preserveAspectRatio="none"
-              className="absolute inset-0 h-full w-full"
+              viewBox="0 0 100 75"
+              className="beam-glow absolute inset-0 h-full w-full"
               aria-hidden
             >
-              {/* 3 edges, each shortened so it stops before the vertex circles */}
+              {/* Outline invisible. Stacked dashes share a leading edge and
+                  trail off behind it — one white comet with a fading tail. */}
               {[
-                { x1: 45, y1: 28.7, x2: 25, y2: 63.3 },
-                { x1: 30, y1: 72, x2: 70, y2: 72 },
-                { x1: 75, y1: 63.3, x2: 55, y2: 28.7 },
-              ].map((l, i) => (
-                <line
-                  key={i}
-                  className="tri-line"
-                  x1={l.x1}
-                  y1={l.y1}
-                  x2={l.x2}
-                  y2={l.y2}
+                { l: 12, opacity: 0.1, w: 0.2 },
+                { l: 8, opacity: 0.18, w: 0.24 },
+                { l: 5, opacity: 0.32, w: 0.28 },
+                { l: 3, opacity: 0.55, w: 0.32 },
+                { l: 1.6, opacity: 0.85, w: 0.36 },
+                { l: 0.8, opacity: 1, w: 0.42 },
+              ].map((seg) => (
+                <polygon
+                  key={seg.l}
+                  className="tri-beam"
+                  points="20,24 80,24 50,51"
                   pathLength={100}
-                  stroke="rgba(150,175,255,0.55)"
-                  strokeWidth={2.5}
+                  fill="none"
+                  stroke="#ffffff"
+                  strokeWidth={seg.w}
+                  strokeOpacity={seg.opacity}
                   strokeLinecap="round"
-                  vectorEffect="non-scaling-stroke"
+                  style={{ strokeDasharray: `${seg.l} ${100 - seg.l}` }}
                 />
               ))}
             </svg>
 
+            {/* Centred in the triangle (centroid of 20,24 / 80,24 / 50,51) */}
+            <h2 className="absolute left-1/2 top-[44%] -translate-x-1/2 -translate-y-1/2 whitespace-nowrap font-display text-3xl font-semibold leading-tight tracking-tight sm:text-[2.6rem]">
+              Core Principles
+            </h2>
+
             {PRINCIPLES.map((p, i) => {
               const Icon = p.icon;
-              // vertex + text placement per node
+              // vertex + text placement per node (two up top, one at bottom)
               const pos = [
-                "left-1/2 top-[20%]", // top
-                "left-[20%] top-[72%]", // bottom-left
-                "left-[80%] top-[72%]", // bottom-right
+                "left-[20%] top-[32%]", // top-left
+                "left-[80%] top-[32%]", // top-right
+                "left-1/2 top-[68%]", // bottom-centre
               ][i];
               const textPos = [
-                "left-1/2 top-[20%] w-80 -translate-x-1/2 -translate-y-full pb-12 text-center",
-                "left-[20%] top-[72%] w-64 -translate-x-1/2 pt-12 text-center",
-                "left-[80%] top-[72%] w-64 -translate-x-1/2 pt-12 text-center",
+                "left-[20%] top-[32%] w-64 -translate-x-1/2 -translate-y-full pb-12 text-center",
+                "left-[80%] top-[32%] w-64 -translate-x-1/2 -translate-y-full pb-12 text-center",
+                "left-1/2 top-[68%] w-80 -translate-x-1/2 pt-12 text-center",
               ][i];
+              // when the beam reaches this vertex within its 7s lap
+              const nodeDelay = ["0s", "4.02s", "2.01s"][i];
               return (
                 <div key={p.title}>
                   <span
-                    className={`glass absolute z-10 grid h-16 w-16 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full text-ink transition duration-300 hover:text-white hover:ring-1 hover:ring-[rgba(150,175,255,0.55)] hover:shadow-[0_0_32px_-2px_rgba(150,175,255,0.75)] ${pos}`}
+                    style={{ ["--node-delay" as string]: nodeDelay }}
+                    className={`tri-node glass absolute z-10 grid h-16 w-16 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full text-ink transition duration-300 hover:text-white hover:ring-1 hover:ring-[rgba(150,175,255,0.55)] ${pos}`}
                   >
                     <Icon className="h-6 w-6" />
                   </span>
@@ -370,7 +395,7 @@ export default function DigitalAdvertisingPage() {
                 delay={i * 90}
                 className="card card-hover flex flex-col p-7"
               >
-                <h3 className="border-l-2 border-brand-cyan/70 pl-3 font-display text-lg font-semibold tracking-tight">
+                <h3 className="relative pl-3 font-display text-lg font-semibold tracking-tight before:absolute before:inset-y-0 before:left-0 before:w-[2px] before:rounded-full before:bg-[linear-gradient(to_bottom,#ffffff,#a374ff)] before:content-['']">
                   {step.title}
                 </h3>
                 <p className="mt-4 text-sm leading-relaxed text-ink-muted">
@@ -383,8 +408,52 @@ export default function DigitalAdvertisingPage() {
 
         {/* Team */}
         <section id="team" className="mx-auto mt-28 max-w-5xl px-6 text-center scroll-mt-40 sm:mt-40">
+          {/* Heading centred, avatars orbiting around it */}
           <Reveal>
-            <blockquote className="mx-auto max-w-4xl">
+            <div className="relative mx-auto h-[min(22rem,86vw)] w-[min(22rem,86vw)] lg:h-[40rem] lg:w-[40rem]">
+              <h2 className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap font-display text-2xl font-semibold leading-tight tracking-tight sm:text-[2.2rem]">
+                Your Dedicated Team
+              </h2>
+
+              {TEAM.map((member) => {
+                const Icon = member.icon;
+                return (
+                  <div
+                    key={member.role}
+                    className="orbit"
+                    style={{
+                      ["--orbit-delay" as string]: member.delay,
+                      ["--orbit-angle" as string]: member.angle,
+                    }}
+                  >
+                    <div className="absolute left-1/2 top-0 -translate-x-1/2">
+                      <div
+                        className="orbit-counter flex flex-col items-center"
+                        style={{
+                          ["--orbit-delay" as string]: member.delay,
+                          ["--orbit-angle" as string]: member.angle,
+                        }}
+                      >
+                        <span className="relative grid h-20 w-20 place-items-center rounded-full bg-white text-[#0a0c14] shadow-[0_0_34px_-4px_rgba(255,255,255,0.75)]">
+                          <UserRound className="h-10 w-10" />
+                          {/* role icon badge */}
+                          <span className="absolute -bottom-1 -right-1 grid h-8 w-8 place-items-center rounded-full bg-[#0a0c14] text-white ring-2 ring-white">
+                            <Icon className="h-4 w-4" />
+                          </span>
+                        </span>
+                        <p className="mt-3 w-28 text-xs font-medium leading-tight text-ink-muted">
+                          {member.role}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </Reveal>
+
+          <Reveal delay={120}>
+            <blockquote className="mx-auto mt-6 max-w-4xl">
               <p className="font-sans text-xl font-medium leading-[1.5] tracking-tight sm:text-2xl">
                 <span aria-hidden className="text-gradient">
                   &ldquo;
@@ -400,28 +469,6 @@ export default function DigitalAdvertisingPage() {
               </p>
             </blockquote>
           </Reveal>
-
-          <Reveal delay={120}>
-            <h3 className="mt-14 font-display text-2xl font-semibold tracking-tight">
-              Your Dedicated Team
-            </h3>
-          </Reveal>
-
-          <div className="mt-10 grid gap-8 sm:grid-cols-3">
-            {TEAM.map((member, i) => {
-              const Icon = member.icon;
-              return (
-                <Reveal as="div" key={member.role} delay={i * 100} className="flex flex-col items-center">
-                  <span className="glass grid h-20 w-20 place-items-center rounded-full text-ink">
-                    <Icon className="h-8 w-8" />
-                  </span>
-                  <p className="mt-4 font-display text-base font-semibold tracking-tight">
-                    {member.role}
-                  </p>
-                </Reveal>
-              );
-            })}
-          </div>
         </section>
 
         {/* Contact — shared component (id="contact") */}

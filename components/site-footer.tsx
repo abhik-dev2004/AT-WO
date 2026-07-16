@@ -36,6 +36,8 @@ const COLUMNS = [
 const LINK_HREFS: Record<string, string> = {
   Sitemap: "/sitemap.xml",
   "Digital Advertising": "/services/digital-advertising",
+  "Privacy Policy": "/privacy",
+  "Terms & Conditions": "/terms",
 };
 
 const SOCIAL = [

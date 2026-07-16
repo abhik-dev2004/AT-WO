@@ -161,7 +161,7 @@ export default function Contact() {
                 <p className="mx-auto max-w-xl text-xs text-ink-subtle">
                   By submitting this form you confirm that you agree to Abstract
                   Techvision&rsquo;s{" "}
-                  <a href="#privacy" className="underline underline-offset-2 hover:text-ink-muted">
+                  <a href="/privacy" className="underline underline-offset-2 hover:text-ink-muted">
                     privacy policy
                   </a>
                 </p>

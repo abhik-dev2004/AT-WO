@@ -18,7 +18,7 @@ const urbanist = Urbanist({
 export const metadata: Metadata = {
   metadataBase: new URL("https://abstracttechvisions.com"),
   title: {
-    default: "Abstract Techvisions — Strategy, Systems, Brand & Performance",
+    default: "Abstract Techvisions | Strategy, Systems, Brand & Performance",
     template: "%s · Abstract Techvisions",
   },
   description:
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Abstract Techvisions",
     description:
-      "One synchronized system for brand and technology — built to accelerate growth.",
+      "One synchronized system for brand and technology, built to accelerate growth.",
     type: "website",
   },
 };

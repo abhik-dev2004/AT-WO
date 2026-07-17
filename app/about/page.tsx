@@ -11,7 +11,7 @@ import CountUp from "@/components/count-up";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "One team of strategists, engineers and builders — synchronizing marketing and technology into a single execution model committed to your growth.",
+    "One team of strategists, engineers and builders, synchronizing marketing and technology into a single execution model committed to your growth.",
 };
 
 const PHILOSOPHY = [
@@ -91,7 +91,7 @@ const FAQS = [
   },
   {
     q: "How do we get started?",
-    a: "We'll set up an initial consultation to understand your business, your goals, and where you are right now. From there, we move into next steps together — whether that's a follow-up discovery session or going straight into strategy and then execution.",
+    a: "We'll set up an initial consultation to understand your business, your goals, and where you are right now. From there, we move into next steps together, whether that's a follow-up discovery session or going straight into strategy and then execution.",
   },
 ];
 
@@ -121,7 +121,7 @@ export default function AboutPage() {
               <Reveal className="relative mx-auto max-w-4xl px-6 py-16 text-center sm:px-10">
                 <h1 className="font-display text-3xl font-semibold leading-[1.14] tracking-tight sm:text-5xl">
                   We are a team of strategists, engineers, and builders driven by
-                  a single belief — that every business deserves a{" "}
+                  a single belief: that every business deserves a{" "}
                   <span className="text-gradient">
                     partner as committed to its growth
                   </span>{" "}
@@ -156,7 +156,7 @@ export default function AboutPage() {
               <p className="mt-5 text-sm leading-relaxed text-ink-muted">
                 We heard these questions from leaders after leaders, in different
                 industries and at different stages. The specifics varied but the
-                core was always the same — marketing and technology were being
+                core was always the same: marketing and technology were being
                 treated in silos and that separation was the problem.
               </p>
             </Reveal>
@@ -176,7 +176,7 @@ export default function AboutPage() {
                 questions. We built a firm where the team that grows your
                 marketing is the same team that builds the technology to support
                 it. We believe in the future where a business scaling through
-                marketing deserves systems that can grow with it — and a business
+                marketing deserves systems that can grow with it, and a business
                 with strong technology deserves a strategy that makes it visible.
               </p>
             </Reveal>
@@ -307,7 +307,7 @@ export default function AboutPage() {
                 . We&rsquo;re developing the infrastructure and strategy to take
                 businesses from transformation into permanent market leadership.
                 We&rsquo;re moving toward a future where unified digital
-                intelligence isn&rsquo;t a competitive advantage — it&rsquo;s a
+                intelligence isn&rsquo;t a competitive advantage; it&rsquo;s a
                 baseline. And we&rsquo;re determined to get our clients there
                 first.
                 <span aria-hidden className="text-gradient">
@@ -315,7 +315,7 @@ export default function AboutPage() {
                 </span>
               </p>
               <footer className="mt-6 text-sm text-ink-subtle">
-                — CEO, Abstract Techvisions
+                CEO, Abstract Techvisions
               </footer>
             </blockquote>
           </Reveal>

@@ -39,7 +39,7 @@ const SLIDES: Slide[] = [
       "radial-gradient(50% 60% at 18% 30%, rgba(255,77,99,0.55), transparent 60%), radial-gradient(55% 70% at 85% 22%, rgba(52,226,234,0.45), transparent 60%), radial-gradient(75% 90% at 60% 105%, rgba(163,116,255,0.55), transparent 60%)",
   },
   {
-    pre: "The AI revolution is moving fast. We make sure your business moves with it — ",
+    pre: "The AI revolution is moving fast. We make sure your business moves with it: ",
     em: "securely, intelligently, and on your own terms",
     post: "",
     cta: "Explore Our Capabilities",

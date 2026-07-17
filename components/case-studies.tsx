@@ -21,7 +21,7 @@ const CASES = [
   {
     title:
       "A solo consulting practice doubled inbound leads and eliminated operational bottlenecks with a custom-built client portal",
-    body: "With an outdated brand and disconnected internal workflows slowing them down, we rebuilt their digital presence with an SEO-driven website from scratch and developed a custom client portal — streamlining project intake, communication, and reporting into one system while bringing high-intent prospects directly to them.",
+    body: "With an outdated brand and disconnected internal workflows slowing them down, we rebuilt their digital presence with an SEO-driven website from scratch and developed a custom client portal that streamlines project intake, communication, and reporting into one system while bringing high-intent prospects directly to them.",
     image: "/case-3.jpg",
     key: "rgba(163,116,255,0.5)",
     edge: "rgba(163,116,255,0.65)",

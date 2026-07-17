@@ -3,7 +3,7 @@ import Reveal from "./reveal";
 const POINTS = [
   {
     title: "You're funding their operations, not your growth.",
-    body: "Most agencies optimize for billable hours, not your outcomes. At Abstract Techvisions, we operate on a fixed-outcome model — no retainer bloat, no ambiguous deliverables. Every dollar you invest is tied directly to a specific result.",
+    body: "Most agencies optimize for billable hours, not your outcomes. At Abstract Techvisions, we operate on a fixed-outcome model: no retainer bloat, no ambiguous deliverables. Every dollar you invest is tied directly to a specific result.",
     key: "rgba(255,77,99,0.5)",
     edge: "rgba(255,77,99,0.65)",
   },
@@ -27,7 +27,7 @@ export default function PainPoints() {
       <Reveal>
         <h2 className="font-display text-3xl font-semibold leading-tight tracking-tight sm:text-[2.6rem]">
           The services are expected, but here is what most vendors won&rsquo;t
-          tell you — and what we built our model around
+          tell you, and what we built our model around
         </h2>
       </Reveal>
 

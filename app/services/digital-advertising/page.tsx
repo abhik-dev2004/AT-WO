@@ -18,7 +18,7 @@ import Contact from "@/components/contact";
 export const metadata: Metadata = {
   title: "Digital Advertising",
   description:
-    "We build digital advertising programs that earn attention and actually convert it — sharper targeting, resonant creative, and tighter measurement.",
+    "We build digital advertising programs that earn attention and actually convert it: sharper targeting, resonant creative, and tighter measurement.",
 };
 
 const NAV = [
@@ -73,7 +73,7 @@ const PRINCIPLES: Principle[] = [
   {
     icon: TrendingUp,
     title: "Optimize toward business outcomes",
-    body: "We optimize for the metrics that actually move the business — pipeline, revenue, and customer acquisition cost.",
+    body: "We optimize for the metrics that actually move the business: pipeline, revenue, and customer acquisition cost.",
   },
 ];
 
@@ -86,7 +86,7 @@ const CAPABILITIES = [
   },
   {
     title: "Creative asset development",
-    body: "We develop ad creative that’s built to convert — from messaging frameworks and copy to visual direction and platform-native formats — aligned to each stage of the funnel.",
+    body: "We develop ad creative that’s built to convert, from messaging frameworks and copy to visual direction and platform-native formats, all aligned to each stage of the funnel.",
     key: "rgba(255,77,99,0.55)",
     edge: "rgba(255,77,99,0.7)",
   },
@@ -98,7 +98,7 @@ const CAPABILITIES = [
   },
   {
     title: "Performance analytics & reporting",
-    body: "We translate raw campaign data into clear business insight — tracking the metrics that matter, identifying what’s driving results, and surfacing the decisions that need to be made next.",
+    body: "We translate raw campaign data into clear business insight: tracking the metrics that matter, identifying what’s driving results, and surfacing the decisions that need to be made next.",
     key: "rgba(255,178,87,0.55)",
     edge: "rgba(255,178,87,0.7)",
   },
@@ -107,7 +107,7 @@ const CAPABILITIES = [
 const PROCESS = [
   {
     title: "Discover & Diagnose",
-    body: "We audit your current position — existing data, past campaign performance, competitive landscape, and audience behavior — to identify where the real opportunity is before we build anything.",
+    body: "We audit your current position (existing data, past campaign performance, competitive landscape, and audience behavior) to identify where the real opportunity is before we build anything.",
   },
   {
     title: "Strategize & Build",
@@ -148,7 +148,7 @@ export default function DigitalAdvertisingPage() {
             <Reveal className="card relative min-h-[20rem] overflow-hidden sm:min-h-[26rem]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/adem-ay-Tk9m_HP4rgQ-unsplash.jpg"
+                src="/eleni-afiontzi-gLU8GZpHtRA-unsplash.jpg"
                 alt="Digital advertising performance dashboard"
                 className="absolute inset-0 h-full w-full object-cover opacity-75"
               />
@@ -408,9 +408,9 @@ export default function DigitalAdvertisingPage() {
 
         {/* Team */}
         <section id="team" className="mx-auto mt-28 max-w-5xl px-6 text-center scroll-mt-40 sm:mt-40">
-          {/* Heading centred, avatars orbiting around it */}
-          <Reveal>
-            <div className="relative mx-auto h-[min(22rem,86vw)] w-[min(22rem,86vw)] lg:h-[40rem] lg:w-[40rem]">
+          {/* Desktop: heading centred, avatars orbiting around it */}
+          <Reveal className="hidden lg:block">
+            <div className="relative mx-auto h-[40rem] w-[40rem]">
               <h2 className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap font-display text-2xl font-semibold leading-tight tracking-tight sm:text-[2.2rem]">
                 Your Dedicated Team
               </h2>
@@ -452,15 +452,47 @@ export default function DigitalAdvertisingPage() {
             </div>
           </Reveal>
 
+          {/* Mobile / tablet: static stacked layout — no overlap */}
+          <div className="lg:hidden">
+            <Reveal>
+              <h2 className="font-display text-2xl font-semibold leading-tight tracking-tight sm:text-[2.2rem]">
+                Your Dedicated Team
+              </h2>
+            </Reveal>
+            <div className="mx-auto mt-10 grid max-w-xl gap-8 sm:grid-cols-3">
+              {TEAM.map((member, i) => {
+                const Icon = member.icon;
+                return (
+                  <Reveal
+                    as="div"
+                    key={member.role}
+                    delay={i * 90}
+                    className="flex flex-col items-center"
+                  >
+                    <span className="relative grid h-20 w-20 place-items-center rounded-full bg-white text-[#0a0c14] shadow-[0_0_34px_-4px_rgba(255,255,255,0.75)]">
+                      <UserRound className="h-10 w-10" />
+                      <span className="absolute -bottom-1 -right-1 grid h-8 w-8 place-items-center rounded-full bg-[#0a0c14] text-white ring-2 ring-white">
+                        <Icon className="h-4 w-4" />
+                      </span>
+                    </span>
+                    <p className="mt-3 text-sm font-medium leading-tight text-ink-muted">
+                      {member.role}
+                    </p>
+                  </Reveal>
+                );
+              })}
+            </div>
+          </div>
+
           <Reveal delay={120}>
-            <blockquote className="mx-auto mt-6 max-w-4xl">
+            <blockquote className="mx-auto mt-16 max-w-4xl sm:mt-24">
               <p className="font-sans text-xl font-medium leading-[1.5] tracking-tight sm:text-2xl">
                 <span aria-hidden className="text-gradient">
                   &ldquo;
                 </span>
                 Every dollar in digital advertising lives or dies on the quality
                 of the data underneath it. We make sure the technology, the data,
-                and the strategy are all pulling in the same direction &mdash;
+                and the strategy are all pulling in the same direction,
                 because that&rsquo;s the only way to build something that
                 compounds.
                 <span aria-hidden className="text-gradient">

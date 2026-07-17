@@ -42,7 +42,7 @@ export default function LegalPage({
         <Reveal delay={80}>
           <p className="card mt-8 p-4 text-sm leading-relaxed text-ink-muted sm:p-5">
             <strong className="text-ink">Placeholder content.</strong> The
-            wording below is a structural draft only &mdash; it is not legal
+            wording below is a structural draft only. It is not legal
             advice and has not been reviewed by counsel. Replace each section
             with your final, reviewed language before launch.
           </p>

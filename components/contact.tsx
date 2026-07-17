@@ -60,7 +60,7 @@ export default function Contact() {
             >
               <CheckCircle2 className="h-12 w-12 text-brand-cyan" />
               <h3 className="font-display text-xl font-semibold">
-                Thank you — your message is on its way.
+                Thank you. Your message is on its way.
               </h3>
               <p className="max-w-md text-sm text-ink-muted">
                 A member of our team will be in touch within 1 business day to

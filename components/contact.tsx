@@ -24,7 +24,6 @@ export default function Contact() {
   return (
     <section id="contact" className="relative mt-28 overflow-hidden sm:mt-40">
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-        <div className="aurora aurora-drift-slow left-[10%] top-[10%] h-[28rem] w-[28rem] bg-[#ff4d63]/25" />
         <div className="aurora aurora-drift right-[8%] bottom-0 h-[26rem] w-[26rem] bg-[#34e2ea]/25" />
       </div>
 

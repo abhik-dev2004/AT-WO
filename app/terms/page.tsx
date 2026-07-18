@@ -18,7 +18,7 @@ const SECTIONS: LegalSection[] = [
   {
     heading: "2. Use of the site",
     body: [
-      "Placeholder: describe permitted use and prohibited conduct — including interfering with the site's operation, attempting unauthorised access, scraping, or using the site unlawfully.",
+      "Placeholder: describe permitted use and prohibited conduct, including interfering with the site's operation, attempting unauthorised access, scraping, or using the site unlawfully.",
     ],
   },
   {

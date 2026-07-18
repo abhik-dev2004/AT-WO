@@ -119,21 +119,11 @@ const PROCESS = [
   },
 ];
 
-// Icon matches the role; evenly spaced around the 26s orbit: 0°, 120°, 240°
+// Icon matches the role
 const TEAM = [
-  {
-    icon: Megaphone,
-    role: "Advertising Strategist",
-    delay: "0s",
-    angle: "0deg",
-  },
-  { icon: Cpu, role: "Technology Lead", delay: "-8.667s", angle: "120deg" },
-  {
-    icon: LineChart,
-    role: "Paid Media Specialist",
-    delay: "-17.333s",
-    angle: "240deg",
-  },
+  { icon: Megaphone, role: "Advertising Strategist" },
+  { icon: Cpu, role: "Technology Lead" },
+  { icon: LineChart, role: "Paid Media Specialist" },
 ];
 
 export default function DigitalAdvertisingPage() {
@@ -148,7 +138,7 @@ export default function DigitalAdvertisingPage() {
             <Reveal className="card relative min-h-[20rem] overflow-hidden sm:min-h-[26rem]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/eleni-afiontzi-gLU8GZpHtRA-unsplash.jpg"
+                src="/digital-advertising-hero.jpg"
                 alt="Digital advertising performance dashboard"
                 className="absolute inset-0 h-full w-full object-cover opacity-75"
               />
@@ -408,80 +398,34 @@ export default function DigitalAdvertisingPage() {
 
         {/* Team */}
         <section id="team" className="mx-auto mt-28 max-w-5xl px-6 text-center scroll-mt-40 sm:mt-40">
-          {/* Desktop: heading centred, avatars orbiting around it */}
-          <Reveal className="hidden lg:block">
-            <div className="relative mx-auto h-[40rem] w-[40rem]">
-              <h2 className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap font-display text-2xl font-semibold leading-tight tracking-tight sm:text-[2.2rem]">
-                Your Dedicated Team
-              </h2>
-
-              {TEAM.map((member) => {
-                const Icon = member.icon;
-                return (
-                  <div
-                    key={member.role}
-                    className="orbit"
-                    style={{
-                      ["--orbit-delay" as string]: member.delay,
-                      ["--orbit-angle" as string]: member.angle,
-                    }}
-                  >
-                    <div className="absolute left-1/2 top-0 -translate-x-1/2">
-                      <div
-                        className="orbit-counter flex flex-col items-center"
-                        style={{
-                          ["--orbit-delay" as string]: member.delay,
-                          ["--orbit-angle" as string]: member.angle,
-                        }}
-                      >
-                        <span className="relative grid h-20 w-20 place-items-center rounded-full bg-white text-[#0a0c14] shadow-[0_0_34px_-4px_rgba(255,255,255,0.75)]">
-                          <UserRound className="h-10 w-10" />
-                          {/* role icon badge */}
-                          <span className="absolute -bottom-1 -right-1 grid h-8 w-8 place-items-center rounded-full bg-[#0a0c14] text-white ring-2 ring-white">
-                            <Icon className="h-4 w-4" />
-                          </span>
-                        </span>
-                        <p className="mt-3 w-28 text-xs font-medium leading-tight text-ink-muted">
-                          {member.role}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+          {/* Static row of avatars on every screen size — no orbit */}
+          <Reveal>
+            <h2 className="whitespace-nowrap font-display text-2xl font-semibold leading-tight tracking-tight sm:text-[2.2rem]">
+              Your Dedicated Team
+            </h2>
           </Reveal>
-
-          {/* Mobile / tablet: static stacked layout — no overlap */}
-          <div className="lg:hidden">
-            <Reveal>
-              <h2 className="font-display text-2xl font-semibold leading-tight tracking-tight sm:text-[2.2rem]">
-                Your Dedicated Team
-              </h2>
-            </Reveal>
-            <div className="mx-auto mt-10 grid max-w-xl gap-8 sm:grid-cols-3">
-              {TEAM.map((member, i) => {
-                const Icon = member.icon;
-                return (
-                  <Reveal
-                    as="div"
-                    key={member.role}
-                    delay={i * 90}
-                    className="flex flex-col items-center"
-                  >
-                    <span className="relative grid h-20 w-20 place-items-center rounded-full bg-white text-[#0a0c14] shadow-[0_0_34px_-4px_rgba(255,255,255,0.75)]">
-                      <UserRound className="h-10 w-10" />
-                      <span className="absolute -bottom-1 -right-1 grid h-8 w-8 place-items-center rounded-full bg-[#0a0c14] text-white ring-2 ring-white">
-                        <Icon className="h-4 w-4" />
-                      </span>
+          <div className="mx-auto mt-14 grid max-w-2xl gap-x-8 gap-y-12 sm:mt-16 sm:grid-cols-3">
+            {TEAM.map((member, i) => {
+              const Icon = member.icon;
+              return (
+                <Reveal
+                  as="div"
+                  key={member.role}
+                  delay={i * 90}
+                  className="flex flex-col items-center"
+                >
+                  <span className="relative grid h-20 w-20 place-items-center rounded-full bg-white text-[#0a0c14] shadow-[0_0_34px_-4px_rgba(255,255,255,0.75)]">
+                    <UserRound className="h-10 w-10" />
+                    <span className="absolute -bottom-1 -right-1 grid h-8 w-8 place-items-center rounded-full bg-[#0a0c14] text-white ring-2 ring-white">
+                      <Icon className="h-4 w-4" />
                     </span>
-                    <p className="mt-3 text-sm font-medium leading-tight text-ink-muted">
-                      {member.role}
-                    </p>
-                  </Reveal>
-                );
-              })}
-            </div>
+                  </span>
+                  <p className="mt-4 text-sm font-medium leading-tight text-ink-muted">
+                    {member.role}
+                  </p>
+                </Reveal>
+              );
+            })}
           </div>
 
           <Reveal delay={120}>

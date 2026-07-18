@@ -106,7 +106,7 @@ export default function AboutPage() {
             <div className="card relative flex min-h-[42rem] items-center overflow-hidden sm:min-h-[34rem] lg:min-h-[38rem]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/andrius-budrikas-98uR9diNLXc-unsplash.jpg"
+                src="/about-hero.jpg"
                 alt=""
                 className="absolute inset-0 h-full w-full object-cover opacity-70"
               />

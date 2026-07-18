@@ -32,8 +32,8 @@ const SLIDES: Slide[] = [
     glow: "#7b5cff",
     media: {
       type: "video",
-      src: "/alt_1.mp4",
-      mobileSrc: "/sable-flow-_ZojfXxQ0vw-unsplash.jpg",
+      src: "/hero-slide-1.mp4",
+      mobileSrc: "/hero-slide-1-mobile.jpg",
     },
     visual:
       "radial-gradient(50% 60% at 18% 30%, rgba(255,77,99,0.55), transparent 60%), radial-gradient(55% 70% at 85% 22%, rgba(52,226,234,0.45), transparent 60%), radial-gradient(75% 90% at 60% 105%, rgba(163,116,255,0.55), transparent 60%)",
@@ -45,7 +45,7 @@ const SLIDES: Slide[] = [
     cta: "Explore Our Capabilities",
     href: "#services",
     glow: "#3f7dff",
-    media: { type: "image", src: "/joshua-reddekopp-SyYmXSDnJ54-unsplash.jpg" },
+    media: { type: "image", src: "/hero-slide-2.jpg" },
     visual:
       "radial-gradient(60% 70% at 78% 28%, rgba(52,226,234,0.6), transparent 60%), radial-gradient(55% 65% at 18% 72%, rgba(163,116,255,0.5), transparent 60%), radial-gradient(65% 80% at 50% 0%, rgba(80,140,255,0.4), transparent 60%)",
   },
@@ -56,7 +56,7 @@ const SLIDES: Slide[] = [
     cta: "See How We Did It",
     href: "#customer",
     glow: "#e0692e",
-    media: { type: "image", src: "/charlesdeluvio-Lks7vei-eAg-unsplash.jpg" },
+    media: { type: "image", src: "/hero-slide-3.jpg" },
     visual:
       "radial-gradient(60% 70% at 24% 30%, rgba(255,178,87,0.55), transparent 60%), radial-gradient(58% 66% at 82% 60%, rgba(255,77,99,0.5), transparent 60%), radial-gradient(65% 80% at 60% 0%, rgba(163,116,255,0.4), transparent 60%)",
   },

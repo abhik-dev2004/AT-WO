@@ -245,46 +245,6 @@ body {
   }
 }
 
-/* Team avatars orbiting the heading. The ring spins; the avatar counter-spins
-   at the same rate so it stays upright. Negative delays (--orbit-delay)
-   stagger them evenly around the circle. */
-@keyframes orbitSpin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-@keyframes orbitCounter {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(-360deg);
-  }
-}
-.orbit {
-  position: absolute;
-  inset: 0;
-  animation: orbitSpin 26s linear infinite;
-  animation-delay: var(--orbit-delay, 0s);
-}
-.orbit-counter {
-  animation: orbitCounter 26s linear infinite;
-  animation-delay: var(--orbit-delay, 0s);
-}
-/* Without motion the delays can't stagger them, so place each statically. */
-@media (prefers-reduced-motion: reduce) {
-  .orbit {
-    animation: none;
-    transform: rotate(var(--orbit-angle, 0deg));
-  }
-  .orbit-counter {
-    animation: none;
-    transform: rotate(calc(var(--orbit-angle, 0deg) * -1));
-  }
-}
 
 
 /* Auto-scrolling anchor nav (marquee). Two identical copies translate by

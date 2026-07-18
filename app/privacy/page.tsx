@@ -11,14 +11,14 @@ const SECTIONS: LegalSection[] = [
   {
     heading: "1. Information we collect",
     body: [
-      "Placeholder: describe the categories of information collected — details submitted through forms (such as name, email address, phone number, and message content), and information gathered automatically (such as IP address, browser type, device identifiers, and pages visited).",
+      "Placeholder: describe the categories of information collected: details submitted through forms (such as name, email address, phone number, and message content), and information gathered automatically (such as IP address, browser type, device identifiers, and pages visited).",
       "Placeholder: note any information received from third parties, such as analytics providers, advertising platforms, or business partners.",
     ],
   },
   {
     heading: "2. How we use your information",
     body: [
-      "Placeholder: explain the purposes for processing — responding to enquiries, delivering and improving services, sending marketing communications where opted in, maintaining security, and meeting legal obligations.",
+      "Placeholder: explain the purposes for processing: responding to enquiries, delivering and improving services, sending marketing communications where opted in, maintaining security, and meeting legal obligations.",
       "Placeholder: state the lawful basis for each purpose where applicable (for example, consent, contract, or legitimate interests).",
     ],
   },
@@ -31,7 +31,7 @@ const SECTIONS: LegalSection[] = [
   {
     heading: "4. Sharing and disclosure",
     body: [
-      "Placeholder: identify the categories of recipients — service providers and processors, professional advisers, and authorities where required by law. Confirm whether personal information is sold or shared for cross-context behavioural advertising.",
+      "Placeholder: identify the categories of recipients: service providers and processors, professional advisers, and authorities where required by law. Confirm whether personal information is sold or shared for cross-context behavioural advertising.",
     ],
   },
   {
@@ -49,7 +49,7 @@ const SECTIONS: LegalSection[] = [
   {
     heading: "7. Your rights",
     body: [
-      "Placeholder: summarise the rights available to individuals — access, correction, deletion, portability, objection, restriction, and withdrawal of consent — and explain how a request can be submitted and verified.",
+      "Placeholder: summarise the rights available to individuals (access, correction, deletion, portability, objection, restriction, and withdrawal of consent), and explain how a request can be submitted and verified.",
       "Placeholder: include the right to lodge a complaint with a supervisory authority where applicable.",
     ],
   },

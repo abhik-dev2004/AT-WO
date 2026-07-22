@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 import SiteHeader from "./site-header";
 import SiteFooter from "./site-footer";
 import Reveal from "./reveal";
@@ -9,9 +11,11 @@ export type LegalSection = {
 
 type LegalPageProps = {
   title: string;
-  updated: string;
-  intro: string;
+  /** Lead paragraphs shown above the first section. */
+  intro: string[];
   sections: LegalSection[];
+  /** Closing paragraphs shown after the last section. */
+  closing?: string[];
 };
 
 /**
@@ -20,9 +24,9 @@ type LegalPageProps = {
  */
 export default function LegalPage({
   title,
-  updated,
   intro,
   sections,
+  closing = [],
 }: LegalPageProps) {
   return (
     <>
@@ -33,19 +37,14 @@ export default function LegalPage({
           <h1 className="font-display text-3xl font-semibold leading-[1.15] tracking-tight sm:text-5xl">
             {title}
           </h1>
-          <p className="mt-4 text-sm text-ink-subtle">Last updated: {updated}</p>
-          <p className="mt-6 text-base leading-relaxed text-ink-muted sm:text-lg">
-            {intro}
-          </p>
-        </Reveal>
-
-        <Reveal delay={80}>
-          <p className="card mt-8 p-4 text-sm leading-relaxed text-ink-muted sm:p-5">
-            <strong className="text-ink">Placeholder content.</strong> The
-            wording below is a structural draft only. It is not legal
-            advice and has not been reviewed by counsel. Replace each section
-            with your final, reviewed language before launch.
-          </p>
+          {intro.map((paragraph) => (
+            <p
+              key={paragraph}
+              className="mt-6 text-base leading-relaxed text-ink-muted sm:text-lg"
+            >
+              {paragraph}
+            </p>
+          ))}
         </Reveal>
 
         <div className="mt-12 space-y-10 sm:mt-16 sm:space-y-12">
@@ -66,17 +65,26 @@ export default function LegalPage({
           ))}
         </div>
 
-        <Reveal delay={60}>
-          <p className="mt-14 border-t border-white/8 pt-8 text-sm leading-relaxed text-ink-muted sm:mt-16">
-            Questions about this page?{" "}
-            <a
-              href="/contact"
-              className="text-ink underline underline-offset-4 transition-colors hover:text-white"
-            >
-              Get in touch
-            </a>
-            .
-          </p>
+        {closing.length > 0 && (
+          <Reveal delay={60} className="mt-12 border-t border-white/8 pt-8 sm:mt-16">
+            {closing.map((paragraph) => (
+              <p
+                key={paragraph}
+                className="mt-3 text-sm leading-relaxed text-ink-muted first:mt-0 sm:text-base"
+              >
+                {paragraph}
+              </p>
+            ))}
+          </Reveal>
+        )}
+
+        <Reveal delay={80} className="mt-12 sm:mt-16">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-1.5 text-sm text-ink-subtle transition-colors hover:text-ink"
+          >
+            <ArrowLeft className="h-4 w-4" /> Back to home
+          </Link>
         </Reveal>
       </main>
 

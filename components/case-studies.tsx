@@ -101,7 +101,7 @@ export default function CaseStudies() {
 
       {/* Read More */}
       <Reveal className="mt-10 flex justify-center">
-        <StarBorder text="Read More" href="#customer" color="#a374ff" speed="5s" />
+        <StarBorder text="Read More" href="/customer" color="#a374ff" speed="5s" />
       </Reveal>
 
       {/* Client testimonials */}

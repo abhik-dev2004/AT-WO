@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { ChevronDown, Menu, X, ArrowRight } from "lucide-react";
 import GlowButton from "./glow-button";
 import { SERVICE_CATEGORIES } from "@/lib/services";
 
 const SIMPLE_NAV = [
   { label: "About", href: "/about" },
-  { label: "Customer", href: "/#customer" },
+  { label: "Customer", href: "/customer" },
 ];
 
 export default function SiteHeader() {
@@ -57,13 +58,13 @@ export default function SiteHeader() {
             : "border border-white/10 bg-[#080a12]/35 backdrop-blur-lg"
         }`}
       >
-        <a href="/" className="flex items-center gap-2.5 shrink-0">
+        <Link href="/" className="flex items-center gap-2.5 shrink-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/logo.png" alt="Abstract Techvisions" className="h-7 w-auto" />
           <span className="font-display text-[0.98rem] font-semibold tracking-tight text-ink">
             Abstract Techvisions
           </span>
-        </a>
+        </Link>
 
         <ul className="hidden items-center gap-1 md:flex">
           <li onMouseEnter={openServices} onMouseLeave={scheduleClose}>

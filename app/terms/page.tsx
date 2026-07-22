@@ -4,92 +4,87 @@ import LegalPage, { type LegalSection } from "@/components/legal-page";
 export const metadata: Metadata = {
   title: "Terms & Conditions",
   description:
-    "The terms governing your use of the Abstract Techvisions website and services.",
+    "The use of this website and Services on this website provided by Abstract Techvisions Pvt. Ltd. are subject to the following Terms & Conditions.",
 };
+
+const INTRO = [
+  "The use of this website and Services on this website provided by Abstract Techvisions Pvt. Ltd. are subject to the following Terms & Conditions.",
+];
 
 const SECTIONS: LegalSection[] = [
   {
-    heading: "1. Acceptance of these terms",
+    heading: "Ownership",
     body: [
-      "Placeholder: state that accessing or using the site constitutes agreement to these terms, and that visitors who do not agree should discontinue use.",
-      "Placeholder: identify the legal entity behind the site and note that separate written agreements govern paid engagements.",
+      "The website also its contents are the property of Abstract Techvisions Pvt. Ltd. whose registered office being based at Kolkata, West Bengal, India. For any inquiry please drop a mail at info@tekabs.com.",
     ],
   },
   {
-    heading: "2. Use of the site",
+    heading: "Disclaimer",
     body: [
-      "Placeholder: describe permitted use and prohibited conduct, including interfering with the site's operation, attempting unauthorised access, scraping, or using the site unlawfully.",
+      "If the User uses the ABSTRACT Website, User shall be responsible for maintaining the confidentiality of User Display Name and Password. User shall be responsible for all activities that occur under User Display Name and Password. User agrees that if provided information which is false, plagiarised, or not relevant with our Terms of usage, in that case, Abstract Techvisions having the authority to suspend or terminate or block access of User membership on the website and refuse to provide any further access. On the other hand, if suspended Users could provide the right meaningful clarification to us and that not be violating our Terms of usage then we will allow User to regain membership and further access.",
     ],
   },
   {
-    heading: "3. Intellectual property",
+    heading: "Copyright",
     body: [
-      "Placeholder: confirm ownership of site content, trademarks, and design, and set out the limited licence granted to visitors for personal, non-commercial viewing.",
+      "All available information which includes in or made accessible through Abstract Techvisions Pvt. Ltd., such as text, graphics, logos, button icons, images, audio clips, digital downloads, and software are all the exclusive properties of Abstract Techvisions and are being protected under copyright laws.",
     ],
   },
   {
-    heading: "4. Submissions and feedback",
+    heading: "Protection",
     body: [
-      "Placeholder: explain the treatment of material submitted through forms or otherwise, the licence granted to us for that material, and the warranties given by the person submitting it.",
+      "The copyright in the materials contained on the Abstract Techvisions website belongs to Abstract Techvisions Pvt. Ltd. All the necessary details appearing on this website are protected by international copyright, trademark property rights, and relevant applicable laws.",
     ],
   },
   {
-    heading: "5. Services and engagements",
+    heading: "Browser Support",
     body: [
-      "Placeholder: clarify that site content is informational, that no offer is created by the site, and that scope, fees, and deliverables are governed by a separate signed agreement.",
+      "You can access our website through any Browsers you like. If you still having an issue, please remove your cookies and clear Browser history and re-try.",
     ],
   },
   {
-    heading: "6. Third-party links and services",
+    heading: "Communications",
     body: [
-      "Placeholder: note that links to third-party sites are provided for convenience, that those sites are not controlled by us, and that we accept no responsibility for their content or practices.",
+      "When the User uses our ABSTRACT website or uses to send emails or share any other information or communicate with us, User will be agreeing and understands that User is communicating with us through emails/any electronic devices and are consent to receive further information via email or voice call from Us periodically as per requirement. We may communicate with our users through emails, voice calls or another mode of communication.",
     ],
   },
   {
-    heading: "7. Disclaimers",
+    heading: "Restriction",
     body: [
-      "Placeholder: state that the site is provided on an \"as is\" and \"as available\" basis, without warranties of any kind to the fullest extent permitted by law.",
+      "Abstract Techvisions Pvt. Ltd. holds all right to suspend or dismiss the access to certain features, contents or parts of the website, or the use of the complete website at any time without the previous announcement.",
     ],
   },
   {
-    heading: "8. Limitation of liability",
+    heading: "Violation",
     body: [
-      "Placeholder: set out the limitations and exclusions of liability, including any cap on damages, subject to the liabilities that cannot lawfully be excluded.",
+      "Abstract Techvisions Pvt. Ltd. holds the right to investigate and prosecute violations of any of these terms and conditions of use to the extent permitted by law.",
     ],
   },
   {
-    heading: "9. Indemnity",
+    heading: "Moderation",
     body: [
-      "Placeholder: describe the visitor's obligation to indemnify the company against claims arising from misuse of the site or breach of these terms.",
+      "Abstract Techvisions Pvt. Ltd. holds the right to control the user-generated content and moderate/delete the posts, feedback, comments before publishing in the comments/blogs section accessible for all the users and/or readers.",
     ],
   },
   {
-    heading: "10. Governing law and disputes",
+    heading: "Modifications",
     body: [
-      "Placeholder: specify the governing law, the courts or forum with jurisdiction, and any dispute-resolution or arbitration process.",
+      "Abstract Techvisions Pvt. Ltd. reserves the right to modify the content on the website and make changes in the above-mentioned terms and conditions from time to time on the website.",
     ],
   },
-  {
-    heading: "11. Changes to these terms",
-    body: [
-      "Placeholder: explain that terms may be updated, how the effective date is shown, and that continued use after changes constitutes acceptance.",
-    ],
-  },
-  {
-    heading: "12. Contact us",
-    body: [
-      "Placeholder: provide the legal entity name, registered address, and a contact email address for questions about these terms.",
-    ],
-  },
+];
+
+const CLOSING = [
+  "You confirm that you have read and accepted Abstract Techvisions Pvt. Ltd. Terms of usage. You will be responsible for and agree to pay for any losses, costs and /or expenses that Abstract Techvisions Pvt. Ltd. suffer as a result of you failing to comply with the terms and conditions of use.",
 ];
 
 export default function TermsPage() {
   return (
     <LegalPage
       title="Terms & Conditions"
-      updated="16 July 2026"
-      intro="These terms govern your access to and use of the Abstract Techvisions website. Please read them carefully."
+      intro={INTRO}
       sections={SECTIONS}
+      closing={CLOSING}
     />
   );
 }

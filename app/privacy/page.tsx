@@ -2,90 +2,52 @@ import type { Metadata } from "next";
 import LegalPage, { type LegalSection } from "@/components/legal-page";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy",
+  title: "Privacy Statement",
   description:
-    "How Abstract Techvisions collects, uses, and protects your personal information.",
+    "How Abstract Techvisions Pvt. Ltd. collects, processes, shares and protects the personal information of its users.",
 };
+
+const INTRO = [
+  "Being an Organization, we are responsible for all the data & information protection that our current and previous Users had provided while visiting our website and uses our services presented by Abstract Techvisions Pvt. Ltd. In this regard, protection of registered User information and data which we process and make sure complying with Data Protection Legislation.",
+  "All the general individual private data which will be including personal information, name, address, e-mail id that is comprised in our correspondence with you, portrait photo, resume or any other personal data. We also clarify that you are not obligated to provide us your personal info beyond the limited data we need from you to get register your account or to make payments if you have bought any services from us. We also further clarify that we do not require you to provide “sensitive information” to use our services, and if you select to include it on your profile it will be visible to others.",
+];
 
 const SECTIONS: LegalSection[] = [
   {
-    heading: "1. Information we collect",
+    heading: "Share information",
     body: [
-      "Placeholder: describe the categories of information collected: details submitted through forms (such as name, email address, phone number, and message content), and information gathered automatically (such as IP address, browser type, device identifiers, and pages visited).",
-      "Placeholder: note any information received from third parties, such as analytics providers, advertising platforms, or business partners.",
+      "Abstract Techvisions consider all user’s data as private and confidential, and do not sell, trade, or rent this to others. We may share generic aggregated demographic information not related to any private information regarding users with our partners, associates, and advertisers, advocates for some legitimate and business analysis according to the law.",
     ],
   },
   {
-    heading: "2. How we use your information",
+    heading: "Security",
     body: [
-      "Placeholder: explain the purposes for processing: responding to enquiries, delivering and improving services, sending marketing communications where opted in, maintaining security, and meeting legal obligations.",
-      "Placeholder: state the lawful basis for each purpose where applicable (for example, consent, contract, or legitimate interests).",
+      "Abstract Techvisions implements appropriate genuine information storage and processing safety measures to protect against unauthorized admission, alteration, disclosure or obliteration of the user’s personal information, username, password, transaction information and data stored on our site. The unidentified/anonymous remarks, notes and/or negotiations would be treated on the internet as plague and will not be encouraged. In this regard, Abstract Techvisions Pvt. Ltd. having the full authority to block the person and also willing to take strict actions against that User.",
     ],
   },
   {
-    heading: "3. Cookies and similar technologies",
+    heading: "Lawful aspects",
     body: [
-      "Placeholder: describe the cookies and similar technologies used, what each category does (strictly necessary, analytics, advertising), and how visitors can manage their preferences through the cookie banner or browser settings.",
+      "As before, Abstract Techvisions will only collect and process your private information when we have legal bases for doing so. These legal bases include when you provide us consent, when we have a contractual obligation to collect or process your private information, and when we have a legitimate interest in processing your information.",
     ],
   },
   {
-    heading: "4. Sharing and disclosure",
+    heading: "Changes to the Privacy policy",
     body: [
-      "Placeholder: identify the categories of recipients: service providers and processors, professional advisers, and authorities where required by law. Confirm whether personal information is sold or shared for cross-context behavioural advertising.",
-    ],
-  },
-  {
-    heading: "5. International transfers",
-    body: [
-      "Placeholder: explain whether information is transferred outside your primary jurisdiction and the safeguards relied upon for those transfers.",
-    ],
-  },
-  {
-    heading: "6. Data retention",
-    body: [
-      "Placeholder: set out how long each category of information is retained, and the criteria used to determine those periods.",
-    ],
-  },
-  {
-    heading: "7. Your rights",
-    body: [
-      "Placeholder: summarise the rights available to individuals (access, correction, deletion, portability, objection, restriction, and withdrawal of consent), and explain how a request can be submitted and verified.",
-      "Placeholder: include the right to lodge a complaint with a supervisory authority where applicable.",
-    ],
-  },
-  {
-    heading: "8. Security",
-    body: [
-      "Placeholder: describe the technical and organisational measures used to protect personal information, and note that no method of transmission or storage is completely secure.",
-    ],
-  },
-  {
-    heading: "9. Children's privacy",
-    body: [
-      "Placeholder: state the minimum age for using the site and confirm that information is not knowingly collected from children below that age.",
-    ],
-  },
-  {
-    heading: "10. Changes to this policy",
-    body: [
-      "Placeholder: explain how updates are published, how the effective date is indicated, and how material changes are communicated.",
-    ],
-  },
-  {
-    heading: "11. Contact us",
-    body: [
-      "Placeholder: provide the legal entity name, registered address, and a contact email address for privacy enquiries, along with details of any data protection officer or representative.",
+      "Abstract Techvisions Pvt. Ltd. always updates this policy from time to time, so please check our website intermittently. Abstract Techvisions will mark an announcement on the Home page of our site. If you have any concerns about how your data is being utilized or any questions about Abstract Techvisions Privacy policy, please contact info@tekabs.com.",
     ],
   },
 ];
 
+const CLOSING = ["We will respond to all inquiries or concerns as soon as possible."];
+
 export default function PrivacyPolicyPage() {
   return (
     <LegalPage
-      title="Privacy Policy"
-      updated="16 July 2026"
-      intro="This policy explains what information Abstract Techvisions collects, why we collect it, how we use and protect it, and the choices available to you."
+      title="Privacy Statement"
+      intro={INTRO}
       sections={SECTIONS}
+      closing={CLOSING}
     />
   );
 }

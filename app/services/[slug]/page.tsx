@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import SiteHeader from "@/components/site-header";
@@ -6,6 +7,7 @@ import SiteFooter from "@/components/site-footer";
 import Reveal from "@/components/reveal";
 import GlowButton from "@/components/glow-button";
 import Contact from "@/components/contact";
+import ServicePage from "@/components/service-page";
 import {
   getCategory,
   findService,
@@ -13,20 +15,20 @@ import {
   type ServiceCategory,
   type ServiceItem,
 } from "@/lib/services";
+import { getServiceContent } from "@/lib/service-content";
 
 type Params = { params: Promise<{ slug: string }> };
 
 export function generateStaticParams() {
-  // Digital Advertising has a bespoke static route — skip it here.
-  return serviceSlugs()
-    .filter((slug) => slug !== "digital-advertising")
-    .map((slug) => ({ slug }));
+  return serviceSlugs().map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
   const category = getCategory(slug);
   if (category) return { title: category.name, description: category.tagline };
+  const content = getServiceContent(slug);
+  if (content) return { title: content.name, description: content.hero.body };
   const found = findService(slug);
   if (found) return { title: found.item.name, description: found.item.blurb };
   return {};
@@ -38,6 +40,11 @@ export default async function ServiceSlugPage({ params }: Params) {
   const category = getCategory(slug);
   if (category) return <CategoryView category={category} />;
 
+  // Full service page framework, when written content exists for this service
+  const content = getServiceContent(slug);
+  if (content) return <ServicePage content={content} />;
+
+  // Fallback for services still awaiting content
   const found = findService(slug);
   if (found) return <ServiceView category={found.category} item={found.item} />;
 
@@ -54,12 +61,12 @@ function CategoryView({ category }: { category: ServiceCategory }) {
       <main>
         <section className="mx-auto max-w-[88rem] px-6 pt-28 text-center sm:pt-32">
           <Reveal>
-            <a
+            <Link
               href="/#services"
               className="inline-flex items-center gap-1.5 text-sm text-ink-subtle transition-colors hover:text-ink"
             >
               <ArrowLeft className="h-4 w-4" /> All services
-            </a>
+            </Link>
             <h1 className="mt-5 font-display text-4xl font-semibold leading-[1.1] tracking-tight sm:text-6xl">
               {category.name}
             </h1>

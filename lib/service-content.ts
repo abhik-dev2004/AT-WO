@@ -273,7 +273,7 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
         body: "Ads the average consumer is exposed to daily. Attention is the scarcest resource.",
       },
       {
-        value: "3x",
+        value: "x3",
         body: "Higher conversion rates when creative and audience strategy are aligned from the start.",
       },
     ],
@@ -986,7 +986,7 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
         body: "Average time it takes an enterprise to detect a data breach without active traffic visibility.",
       },
       {
-        value: "$14,000 per minute",
+        value: "$14k PER MINUTE",
         body: "Immediate operational cost to an enterprise during network downtime.",
       },
       {

@@ -49,7 +49,7 @@ export default function RootLayout({
       lang="en"
       className={`${spaceGrotesk.variable} ${urbanist.variable} h-full antialiased`}
     >
-      <body className="min-h-full" suppressHydrationWarning>
+      <body className="min-h-full overflow-x-clip" suppressHydrationWarning>
         <LiquidChrome />
         {children}
       </body>

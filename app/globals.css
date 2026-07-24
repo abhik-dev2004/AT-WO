@@ -247,31 +247,12 @@ body {
 
 
 
-/* Auto-scrolling anchor nav (marquee). Two identical copies translate by
-   -50% for a seamless loop; pauses on hover so links stay clickable. */
+/* Anchor nav: hides its scrollbar; scrolls by hand when it overflows. */
 .nav-scroll {
   scrollbar-width: none;
 }
 .nav-scroll::-webkit-scrollbar {
   display: none;
-}
-@keyframes navMarquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-/* Marquee only on mobile + tablet (< lg); desktop shows the row static. */
-@media (max-width: 1023.98px) and (prefers-reduced-motion: no-preference) {
-  .nav-marquee {
-    animation: navMarquee 16s linear infinite;
-  }
-  .nav-marquee:hover,
-  .nav-marquee:focus-within {
-    animation-play-state: paused;
-  }
 }
 
 /* ------------------------------------------------------------------ *

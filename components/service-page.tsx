@@ -235,14 +235,14 @@ export default function ServicePage({ content }: { content: ServiceContent }) {
             <dl className="grid gap-x-8 gap-y-10 text-center md:grid-cols-3 lg:text-left">
               {stats.map((stat, i) => {
                 const { prefix, num, decimals, suffix } = parseStat(stat.value);
-                const longSuffix = suffix.trim().length > 2;
                 return (
                   <Reveal as="div" key={stat.body} delay={i * 90}>
                     <dt className="sr-only">{stat.body}</dt>
                     <dd>
                       {/* Font size must sit on the gradient element itself:
                           background-clip:text clips to this box, so a smaller
-                          inherited size would crop the glyphs. */}
+                          inherited size would crop the glyphs. Number and unit
+                          share this size, so they always match. */}
                       <span
                         className="font-display inline-block text-4xl font-semibold leading-[1.15] tracking-tight tabular-nums sm:text-5xl"
                         style={{
@@ -258,11 +258,8 @@ export default function ServicePage({ content }: { content: ServiceContent }) {
                           value={num}
                           prefix={prefix}
                           decimals={decimals}
-                          suffix={longSuffix ? "" : suffix}
+                          suffix={suffix}
                         />
-                        {longSuffix && (
-                          <span className="text-lg sm:text-xl">{suffix}</span>
-                        )}
                       </span>
                       <p className="mx-auto mt-3 max-w-xs text-sm leading-relaxed text-ink-muted lg:mx-0">
                         {stat.body}
@@ -278,24 +275,12 @@ export default function ServicePage({ content }: { content: ServiceContent }) {
         {/* Anchor navigation */}
         <nav aria-label="On this page" className="mt-16 sm:mt-20">
           <div className="mx-auto max-w-[88rem] px-6">
-            <div className="nav-scroll glass mx-auto max-w-full overflow-x-auto rounded-full px-2 py-2 lg:w-fit">
-              <ul className="nav-marquee flex w-max items-center gap-1 lg:w-full lg:justify-center">
+            <div className="nav-scroll glass mx-auto w-fit max-w-full overflow-x-auto rounded-full px-2 py-2">
+              <ul className="flex items-center gap-1">
                 {NAV.map((item) => (
                   <li key={item.href} className="shrink-0">
                     <a
                       href={item.href}
-                      className="inline-flex whitespace-nowrap rounded-full px-4 py-2 text-sm text-ink-muted transition-colors hover:bg-white/5 hover:text-ink"
-                    >
-                      {item.label}
-                    </a>
-                  </li>
-                ))}
-                {/* Duplicate set — seamless marquee loop on narrow screens only */}
-                {NAV.map((item) => (
-                  <li key={`dup-${item.href}`} aria-hidden className="shrink-0 lg:hidden">
-                    <a
-                      href={item.href}
-                      tabIndex={-1}
                       className="inline-flex whitespace-nowrap rounded-full px-4 py-2 text-sm text-ink-muted transition-colors hover:bg-white/5 hover:text-ink"
                     >
                       {item.label}

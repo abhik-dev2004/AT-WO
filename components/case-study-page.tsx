@@ -131,7 +131,7 @@ export default function CaseStudyPage({ study }: { study: CaseStudy }) {
               {outcome.map((para) => (
                 <p
                   key={para}
-                  className="text-sm leading-relaxed text-ink-muted sm:text-base"
+                  className="text-base leading-relaxed text-ink-muted sm:text-lg"
                 >
                   {para}
                 </p>

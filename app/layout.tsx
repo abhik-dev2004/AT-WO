@@ -17,9 +17,11 @@ const urbanist = Urbanist({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://abstracttechvisions.com"),
+  // Every tab shows just "Abstract Techvisions": the template has no %s, so
+  // any child-page title collapses to this constant.
   title: {
-    default: "Abstract Techvisions | Strategy, Systems, Brand & Performance",
-    template: "%s · Abstract Techvisions",
+    default: "Abstract Techvisions",
+    template: "Abstract Techvisions",
   },
   description:
     "We connect strategy, systems, brand and performance into one execution model designed to accelerate your business growth.",

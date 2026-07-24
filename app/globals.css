@@ -247,12 +247,32 @@ body {
 
 
 
-/* Anchor nav: hides its scrollbar; scrolls by hand when it overflows. */
+/* Anchor nav: hides its scrollbar. */
 .nav-scroll {
   scrollbar-width: none;
 }
 .nav-scroll::-webkit-scrollbar {
   display: none;
+}
+/* Auto-scrolling marquee. Two identical copies translate by -50% for a
+   seamless loop; pauses on hover so links stay clickable. Mobile + tablet
+   only (< lg); desktop shows the row static and centered since it fits. */
+@keyframes navMarquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@media (max-width: 1023.98px) and (prefers-reduced-motion: no-preference) {
+  .nav-marquee {
+    animation: navMarquee 16s linear infinite;
+  }
+  .nav-marquee:hover,
+  .nav-marquee:focus-within {
+    animation-play-state: paused;
+  }
 }
 
 /* ------------------------------------------------------------------ *

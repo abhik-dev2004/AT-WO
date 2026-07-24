@@ -275,12 +275,24 @@ export default function ServicePage({ content }: { content: ServiceContent }) {
         {/* Anchor navigation */}
         <nav aria-label="On this page" className="mt-16 sm:mt-20">
           <div className="mx-auto max-w-[88rem] px-6">
-            <div className="nav-scroll glass mx-auto w-fit max-w-full overflow-x-auto rounded-full px-2 py-2">
-              <ul className="flex items-center gap-1">
+            <div className="nav-scroll glass mx-auto max-w-full overflow-x-auto rounded-full px-2 py-2 lg:w-fit">
+              <ul className="nav-marquee flex w-max items-center gap-1 lg:w-full lg:justify-center">
                 {NAV.map((item) => (
                   <li key={item.href} className="shrink-0">
                     <a
                       href={item.href}
+                      className="inline-flex whitespace-nowrap rounded-full px-4 py-2 text-sm text-ink-muted transition-colors hover:bg-white/5 hover:text-ink"
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+                {/* Duplicate set — seamless marquee loop on narrow screens only */}
+                {NAV.map((item) => (
+                  <li key={`dup-${item.href}`} aria-hidden className="shrink-0 lg:hidden">
+                    <a
+                      href={item.href}
+                      tabIndex={-1}
                       className="inline-flex whitespace-nowrap rounded-full px-4 py-2 text-sm text-ink-muted transition-colors hover:bg-white/5 hover:text-ink"
                     >
                       {item.label}

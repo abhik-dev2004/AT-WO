@@ -986,7 +986,7 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
         body: "Average time it takes an enterprise to detect a data breach without active traffic visibility.",
       },
       {
-        value: "$14k PER MINUTE",
+        value: "$14k Per Minute",
         body: "Immediate operational cost to an enterprise during network downtime.",
       },
       {

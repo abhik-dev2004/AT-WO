@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { CaseTab } from "@/lib/customer-content";
+import GlassIllustration from "@/components/glass-illustration";
 
 /**
  * Interactive slider: selecting a tab swaps both the copy and the image.
@@ -58,35 +59,10 @@ export default function CaseStudyTabs({
           {tab.body}
         </p>
 
-        {/* Phase image (falls back to a captioned gradient placeholder) */}
-        <div className="card relative grid aspect-[16/10] place-items-center overflow-hidden">
-          {tab.image ? (
-            <>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={tab.image}
-                alt={tab.label}
-                className="absolute inset-0 h-full w-full object-cover"
-              />
-              <div
-                aria-hidden
-                className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"
-              />
-            </>
-          ) : (
-            <>
-              <div
-                aria-hidden
-                className="absolute inset-0"
-                style={{
-                  background: `radial-gradient(70% 80% at 30% 25%, ${accent}, transparent 65%), radial-gradient(65% 75% at 80% 75%, rgba(80,140,255,0.35), transparent 60%)`,
-                }}
-              />
-              <span className="relative px-6 text-center text-xs uppercase tracking-[0.2em] text-ink-subtle">
-                {tab.imageNote}
-              </span>
-            </>
-          )}
+        {/* Phase illustration — no card chrome; the icon sits directly on the
+            page, and its glow is left unclipped so it can spread. */}
+        <div className="relative aspect-[16/10]">
+          <GlassIllustration src={tab.image} />
         </div>
       </div>
     </div>

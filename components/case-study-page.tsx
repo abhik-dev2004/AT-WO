@@ -20,7 +20,7 @@ export default function CaseStudyPage({ study }: { study: CaseStudy }) {
           <Reveal>
             <Link
               href="/customer"
-              className="inline-flex items-center gap-1.5 text-sm text-ink-subtle transition-colors hover:text-ink"
+              className="inline-flex items-center gap-1.5 text-sm text-white"
             >
               <ArrowLeft className="h-4 w-4" /> All customer stories
             </Link>

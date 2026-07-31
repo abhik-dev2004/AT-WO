@@ -922,3 +922,37 @@ video.hero-slide__visual {
     transform: translate(100%, 0);
   }
 }
+
+/* ------------------------------------------------------------------ *
+ *  Glass illustration (components/glass-illustration.tsx)
+ *  The glyph drifts slowly while the colour haze behind it breathes,
+ *  slightly out of phase so the light feels alive rather than pulsing
+ *  in lockstep with the movement.
+ *
+ *  Haze opacity lives here rather than inline on the element: a CSS
+ *  animation outranks an inline style, so an inline base value would be
+ *  silently ignored while animating and only reappear under reduced
+ *  motion — the two would drift apart. One source per property instead.
+ * ------------------------------------------------------------------ */
+/* The icons ship with their own glow and contact shadow baked in, so the
+   drift is all that's added — a shadow animated separately would fight the
+   one already in the artwork. */
+.gi-float {
+  filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.45));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .gi-float {
+    animation: giFloat 6.5s ease-in-out infinite;
+  }
+}
+
+@keyframes giFloat {
+  0%,
+  100% {
+    transform: translateY(1.6%) rotate(-0.5deg);
+  }
+  50% {
+    transform: translateY(-1.6%) rotate(0.5deg);
+  }
+}

@@ -6,6 +6,7 @@
  * hero paragraphs and bullet lists are provided.
  */
 
+
 export const PENDING_COPY = "Copy pending. Final text to be supplied.";
 
 export const CUSTOMER_INTRO =
@@ -16,10 +17,8 @@ export const MORE_SOON = "New case studies coming soon";
 export type CaseTab = {
   label: string;
   body: string;
-  /** Image for this phase; empty string falls back to the gradient placeholder. */
+  /** Pre-rendered glass illustration for this phase. */
   image: string;
-  /** Caption shown inside the image placeholder when no image is set. */
-  imageNote: string;
 };
 
 export type CaseStudy = {
@@ -35,7 +34,6 @@ export type CaseStudy = {
     headline: string;
     intro: string;
     bullets: string[];
-    imageNote: string;
   };
   tabsHeading: string;
   tabs: CaseTab[];
@@ -62,28 +60,24 @@ export const CASE_STUDIES: CaseStudy[] = [
       intro:
         "With no digital presence and a brand that wasn't converting, we established their visual identity, built a custom online storefront with an integrated checkout and inventory system, and launched targeted paid social campaigns designed around it.",
       bullets: [],
-      imageNote: "Real photography",
     },
     tabsHeading:
       "Before we could scale their revenue, we had to build everything revenue runs on.",
     tabs: [
       {
         label: "Digital Foundations",
-        image: "/customers/boutiuq-brandid.png",
+        image: "/customers/icons/digital-foundations.png",
         body: "Before a single ad ran or a product page went live, we established a full visual identity: logo suite, color system, typography, and iconography that could hold up across every surface from packaging to paid media. Alongside the visual system, we defined the brand voice: the tone, the language, and the messaging hierarchy that would make every customer interaction feel coherent and intentional. This wasn't decoration. It was the foundation that made everything else possible.",
-        imageNote: "Real photography or brand collage",
       },
       {
         label: "E-commerce Build",
-        image: "/customers/boutiuq-storefrontpng.png",
+        image: "/customers/icons/ecommerce-build.png",
         body: "With the brand defined, we built the digital storefront: a high-performance e-commerce site with an integrated checkout and inventory system, designed to convert first-time visitors into buyers and repeat buyers into loyal customers. Every design decision was made with the customer journey in mind: product discovery, trust signals, frictionless checkout, and post-purchase experience. The result was a store that didn't just look like the brand, it performed like a revenue channel, because it was built to be one.",
-        imageNote: "Screenshot of the storefront",
       },
       {
         label: "Social Activation",
-        image: "/customers/boutiuq-digital-transform.png",
+        image: "/customers/icons/social-activation.png",
         body: "With the foundation in place, we launched a targeted paid social campaign built around the audience most likely to buy, and the creative most likely to stop them mid-scroll. We developed platform-native ad creative that reflected the new brand identity, built audience segments from first-party data and behavioral signals, and structured the campaign to drive traffic directly into the new storefront. We optimized weekly, adjusting creative, refining audiences, and reallocating budget toward what the data confirmed was working. Within 90 days, revenue had tripled.",
-        imageNote: "Real photography or large-scale illustration",
       },
     ],
     quote: {
@@ -117,28 +111,24 @@ export const CASE_STUDIES: CaseStudy[] = [
       intro:
         "Facing budget drain from siloed vendors and a manual booking process that couldn't keep up with demand, we rebuilt their ad campaigns and web experience to drive consistent client acquisition, then engineered a custom booking and client management system that converted that traffic automatically.",
       bullets: [],
-      imageNote: "Real photography",
     },
     tabsHeading:
       "We consolidated the marketing, then engineered the system that let growth run on its own.",
     tabs: [
       {
         label: "Campaign Rebuild",
-        image: "/customers/welness-campaign-rebuild.png",
+        image: "/customers/icons/campaign-rebuild.png",
         body: "We started by auditing every dollar going to outside vendors: identifying overlap, waste, and campaigns that were running without a coherent strategy behind them. We rebuilt the paid media approach from the ground up: consolidated channels, sharpened audience targeting, and creative built specifically to drive bookings rather than generic engagement. Every campaign was tied to a single measurement framework, so performance was visible for the first time in one place instead of scattered across vendor reports.",
-        imageNote: "Campaign creative",
       },
       {
         label: "Website Revamp",
-        image: "/customers/wellness-website-revamp.png",
+        image: "/customers/icons/website-revamp.png",
         body: "The existing site wasn't built to convert. It was built to exist. We redesigned the web experience around a single goal: turning visitors into booked clients. That meant a clearer service presentation, faster load times, mobile-first design, and a booking path with as few steps as possible between interest and confirmed appointment. The site became a consistent acquisition channel instead of a static brochure.",
-        imageNote: "Screenshot of the website",
       },
       {
         label: "Customized CRM",
-        image: "/customers/welness-customized-crm.png",
+        image: "/customers/icons/customized-crm.png",
         body: "We engineered a custom booking and client management system that automated scheduling, confirmations, reminders, and client records end to end. The architecture was built to integrate directly with the new web experience and ad tracking, so every booking captured clean data automatically: no manual entry, no double handling, no staff bottleneck. The system was designed to scale with demand instead of limiting it, handling concurrent bookings and syncing client history in real time.",
-        imageNote: "Real photography or large-scale illustration",
       },
     ],
     quote: {
@@ -175,28 +165,24 @@ export const CASE_STUDIES: CaseStudy[] = [
       intro:
         "With an outdated brand and disconnected internal workflows slowing them down, we rebuilt their digital presence with an SEO-driven website from scratch and developed a custom client portal that streamlines project intake, communication, and reporting into one system while bringing high-intent prospects directly to them.",
       bullets: [],
-      imageNote: "Real photography",
     },
     tabsHeading:
       "We rebuilt the brand to match the work, then built the system to match the growth.",
     tabs: [
       {
         label: "Brand Refresh",
-        image: "/customers/consulting-grp-brand-refresh.png",
+        image: "/customers/icons/brand-refresh.png",
         body: "Before anything else, we addressed the gap between how the practice looked and how it actually performed. We refreshed the visual identity and messaging to reflect the caliber of the consulting work: sharper positioning, a clearer point of view, and a visual system built to read as established and credible to a prospect encountering the brand for the first time, with no referral to vouch for it.",
-        imageNote: "Brand collage or illustration",
       },
       {
         label: "SEO Focus",
-        image: "/customers/consulting-grp-website.png",
+        image: "/customers/icons/seo-focus.png",
         body: "We rebuilt the website from scratch around a single objective: generating inbound interest, not just existing online. That meant a content and site architecture built for search visibility, clear service pages structured around what prospects were actually searching for, and a site experience designed to convert a cold visitor into a qualified inquiry. The result was a website that started doing the work referrals used to do alone.",
-        imageNote: "Screenshot of the website",
       },
       {
         label: "Client Portal Build",
-        image: "/customers/consulting-client-portal.png",
+        image: "/customers/icons/client-portal-build.png",
         body: "With demand growing, the operational cracks were becoming a real constraint. We developed a custom client portal that consolidated project intake, client communication, and reporting into a single system, architected to eliminate the manual handoffs that came with juggling separate tools for each function. Every new client now moves through one connected workflow, with status, communication, and reporting synced automatically instead of managed by hand.",
-        imageNote: "Real photography or large-scale illustration",
       },
     ],
     quote: {

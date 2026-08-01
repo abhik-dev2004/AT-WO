@@ -66,17 +66,17 @@ export const CASE_STUDIES: CaseStudy[] = [
     tabs: [
       {
         label: "Digital Foundations",
-        image: "/customers/icons/digital-foundations.png",
+        image: "/customers/photos/digital-foundations.jpg",
         body: "Before a single ad ran or a product page went live, we established a full visual identity: logo suite, color system, typography, and iconography that could hold up across every surface from packaging to paid media. Alongside the visual system, we defined the brand voice: the tone, the language, and the messaging hierarchy that would make every customer interaction feel coherent and intentional. This wasn't decoration. It was the foundation that made everything else possible.",
       },
       {
         label: "E-commerce Build",
-        image: "/customers/icons/ecommerce-build.png",
+        image: "/customers/photos/ecommerce-build.jpg",
         body: "With the brand defined, we built the digital storefront: a high-performance e-commerce site with an integrated checkout and inventory system, designed to convert first-time visitors into buyers and repeat buyers into loyal customers. Every design decision was made with the customer journey in mind: product discovery, trust signals, frictionless checkout, and post-purchase experience. The result was a store that didn't just look like the brand, it performed like a revenue channel, because it was built to be one.",
       },
       {
         label: "Social Activation",
-        image: "/customers/icons/social-activation.png",
+        image: "/customers/photos/social-activation.jpg",
         body: "With the foundation in place, we launched a targeted paid social campaign built around the audience most likely to buy, and the creative most likely to stop them mid-scroll. We developed platform-native ad creative that reflected the new brand identity, built audience segments from first-party data and behavioral signals, and structured the campaign to drive traffic directly into the new storefront. We optimized weekly, adjusting creative, refining audiences, and reallocating budget toward what the data confirmed was working. Within 90 days, revenue had tripled.",
       },
     ],
@@ -117,17 +117,17 @@ export const CASE_STUDIES: CaseStudy[] = [
     tabs: [
       {
         label: "Campaign Rebuild",
-        image: "/customers/icons/campaign-rebuild.png",
+        image: "/customers/photos/campaign-rebuild.jpg",
         body: "We started by auditing every dollar going to outside vendors: identifying overlap, waste, and campaigns that were running without a coherent strategy behind them. We rebuilt the paid media approach from the ground up: consolidated channels, sharpened audience targeting, and creative built specifically to drive bookings rather than generic engagement. Every campaign was tied to a single measurement framework, so performance was visible for the first time in one place instead of scattered across vendor reports.",
       },
       {
         label: "Website Revamp",
-        image: "/customers/icons/website-revamp.png",
+        image: "/customers/photos/website-revamp.jpg",
         body: "The existing site wasn't built to convert. It was built to exist. We redesigned the web experience around a single goal: turning visitors into booked clients. That meant a clearer service presentation, faster load times, mobile-first design, and a booking path with as few steps as possible between interest and confirmed appointment. The site became a consistent acquisition channel instead of a static brochure.",
       },
       {
         label: "Customized CRM",
-        image: "/customers/icons/customized-crm.png",
+        image: "/customers/photos/customized-crm.jpg",
         body: "We engineered a custom booking and client management system that automated scheduling, confirmations, reminders, and client records end to end. The architecture was built to integrate directly with the new web experience and ad tracking, so every booking captured clean data automatically: no manual entry, no double handling, no staff bottleneck. The system was designed to scale with demand instead of limiting it, handling concurrent bookings and syncing client history in real time.",
       },
     ],
@@ -171,17 +171,17 @@ export const CASE_STUDIES: CaseStudy[] = [
     tabs: [
       {
         label: "Brand Refresh",
-        image: "/customers/icons/brand-refresh.png",
+        image: "/customers/photos/brand-refresh.jpg",
         body: "Before anything else, we addressed the gap between how the practice looked and how it actually performed. We refreshed the visual identity and messaging to reflect the caliber of the consulting work: sharper positioning, a clearer point of view, and a visual system built to read as established and credible to a prospect encountering the brand for the first time, with no referral to vouch for it.",
       },
       {
         label: "SEO Focus",
-        image: "/customers/icons/seo-focus.png",
+        image: "/customers/photos/seo-focus.jpg",
         body: "We rebuilt the website from scratch around a single objective: generating inbound interest, not just existing online. That meant a content and site architecture built for search visibility, clear service pages structured around what prospects were actually searching for, and a site experience designed to convert a cold visitor into a qualified inquiry. The result was a website that started doing the work referrals used to do alone.",
       },
       {
         label: "Client Portal Build",
-        image: "/customers/icons/client-portal-build.png",
+        image: "/customers/photos/client-portal-build.jpg",
         body: "With demand growing, the operational cracks were becoming a real constraint. We developed a custom client portal that consolidated project intake, client communication, and reporting into a single system, architected to eliminate the manual handoffs that came with juggling separate tools for each function. Every new client now moves through one connected workflow, with status, communication, and reporting synced automatically instead of managed by hand.",
       },
     ],

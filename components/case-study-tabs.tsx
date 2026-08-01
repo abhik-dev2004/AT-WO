@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import type { CaseTab } from "@/lib/customer-content";
-import GlassIllustration from "@/components/glass-illustration";
+import PhaseImage from "@/components/phase-image";
 
 /**
  * Interactive slider: selecting a tab swaps both the copy and the image.
@@ -59,10 +59,9 @@ export default function CaseStudyTabs({
           {tab.body}
         </p>
 
-        {/* Phase illustration — no card chrome; the icon sits directly on the
-            page, and its glow is left unclipped so it can spread. */}
+        {/* Phase photograph, cropped to the panel. */}
         <div className="relative aspect-[16/10]">
-          <GlassIllustration src={tab.image} />
+          <PhaseImage src={tab.image} />
         </div>
       </div>
     </div>

@@ -1,24 +1,25 @@
 /**
- * Case-study phase illustration — a pre-rendered glass icon, slowly drifting.
+ * Photograph for a case-study phase tab.
  *
- * The square is positioned absolutely on purpose: as a centred grid/flex item
- * its height would be content-based, so `h-[86%]` would resolve against the
- * image's intrinsic height rather than the panel's and overflow it.
- *
- * Parent supplies sizing; this fills it via `absolute inset-0`.
+ * These are photographs, not transparent icons, so they fill and crop to the
+ * panel like the cover images elsewhere on the site rather than floating inside
+ * it, with a scrim seating them against the dark page. A very slow ken-burns
+ * keeps the panel alive without pulling attention off the copy beside it.
  */
-export default function GlassIllustration({ src }: { src: string }) {
+export default function PhaseImage({ src }: { src: string }) {
   return (
-    <div className="absolute inset-0">
-      <div className="absolute left-1/2 top-1/2 aspect-square h-[86%] -translate-x-1/2 -translate-y-1/2">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={src}
-          alt=""
-          loading="lazy"
-          className="gi-float h-full w-full object-contain"
-        />
-      </div>
+    <div className="relative h-full w-full overflow-hidden rounded-[26px] border border-white/10">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={src}
+        alt=""
+        loading="lazy"
+        className="phase-img h-full w-full object-cover"
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/5 to-transparent"
+      />
     </div>
   );
 }

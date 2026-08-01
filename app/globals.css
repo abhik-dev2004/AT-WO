@@ -924,7 +924,7 @@ video.hero-slide__visual {
 }
 
 /* ------------------------------------------------------------------ *
- *  Glass illustration (components/glass-illustration.tsx)
+ *  Case-study phase image (components/phase-image.tsx)
  *  The glyph drifts slowly while the colour haze behind it breathes,
  *  slightly out of phase so the light feels alive rather than pulsing
  *  in lockstep with the movement.
@@ -934,25 +934,21 @@ video.hero-slide__visual {
  *  silently ignored while animating and only reappear under reduced
  *  motion — the two would drift apart. One source per property instead.
  * ------------------------------------------------------------------ */
-/* The icons ship with their own glow and contact shadow baked in, so the
-   drift is all that's added — a shadow animated separately would fight the
-   one already in the artwork. */
-.gi-float {
-  filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.45));
-}
-
+/* Case-study phase photographs. A slow ken-burns rather than the drift used
+   for icons — a photograph that bobs reads as broken, but a gentle push-in
+   keeps the panel from feeling static beside the copy. `alternate` avoids the
+   visible snap a looping scale would give at the wrap point. */
 @media (prefers-reduced-motion: no-preference) {
-  .gi-float {
-    animation: giFloat 6.5s ease-in-out infinite;
+  .phase-img {
+    animation: phaseKenBurns 22s ease-in-out infinite alternate;
   }
 }
 
-@keyframes giFloat {
-  0%,
-  100% {
-    transform: translateY(1.6%) rotate(-0.5deg);
+@keyframes phaseKenBurns {
+  from {
+    transform: scale(1);
   }
-  50% {
-    transform: translateY(-1.6%) rotate(0.5deg);
+  to {
+    transform: scale(1.07);
   }
 }

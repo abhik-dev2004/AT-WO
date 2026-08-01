@@ -22,10 +22,19 @@ export default function CaseStudyTabs({
   return (
     <div>
       {/* Tab bar */}
+      {/* Stacks full-width on mobile. At 375px the three phases measure 450px,
+          so a single row hid the last one behind a scrollbar, and letting them
+          wrap left an odd lone pill centred on a second row. Stacking keeps
+          every phase visible and evenly weighted; from `sm` up they fit one
+          row and the pill returns.
+
+          Deliberately not a marquee like the service-page anchor nav: these
+          are tabs, and a moving target is hard to hit — the active one would
+          drift out of view as you reached for it. */}
       <div
         role="tablist"
         aria-label="Engagement phases"
-        className="nav-scroll glass mx-auto flex w-fit max-w-full items-center gap-1 overflow-x-auto rounded-full px-2 py-2"
+        className="glass mx-auto flex w-full flex-col gap-1 rounded-2xl p-1.5 sm:w-fit sm:max-w-full sm:flex-row sm:flex-nowrap sm:items-center sm:rounded-full sm:px-2 sm:py-2"
       >
         {tabs.map((t, i) => {
           const isActive = i === active;
@@ -37,7 +46,9 @@ export default function CaseStudyTabs({
               aria-selected={isActive}
               onClick={() => setActive(i)}
               style={isActive ? { background: accent } : undefined}
-              className={`shrink-0 whitespace-nowrap rounded-full px-4 py-2 text-sm transition-colors ${
+              /* min-h-11 gives a 44px touch target on mobile; the tighter
+                 36px pill is fine once there's a pointer. */
+              className={`flex min-h-11 w-full items-center justify-center whitespace-nowrap rounded-full px-4 py-2 text-sm transition-colors sm:min-h-0 sm:w-auto sm:shrink-0 ${
                 isActive
                   ? "font-medium text-white"
                   : "text-ink-muted hover:bg-white/5 hover:text-ink"

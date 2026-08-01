@@ -18,9 +18,11 @@ export default function CaseStudyPage({ study }: { study: CaseStudy }) {
         {/* Hero */}
         <section className="mx-auto max-w-[88rem] px-6 pt-24 sm:pt-28">
           <Reveal>
+            {/* min-h-11 lifts this from a 20px line of text to a 44px touch
+                target on mobile; unchanged once there's a pointer. */}
             <Link
               href="/customer"
-              className="inline-flex items-center gap-1.5 text-sm text-white"
+              className="inline-flex min-h-11 items-center gap-1.5 text-sm text-white sm:min-h-0"
             >
               <ArrowLeft className="h-4 w-4" /> All customer stories
             </Link>

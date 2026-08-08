@@ -6,6 +6,7 @@ import SiteFooter from "@/components/site-footer";
 import Reveal from "@/components/reveal";
 import Contact from "@/components/contact";
 import { CASE_STUDIES, CUSTOMER_INTRO, MORE_SOON } from "@/lib/customer-content";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Customer",
@@ -41,12 +42,12 @@ export default function CustomerPage() {
                   className="card card-hover group flex h-full flex-col overflow-hidden"
                 >
                   <div className="relative m-2 h-44 overflow-hidden rounded-[20px] border border-white/10">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
+                    <Image
                       src={study.cardImage}
                       alt=""
-                      loading="lazy"
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                      fill
+                      sizes="(min-width: 768px) 30vw, 100vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                     />
                     <div
                       aria-hidden

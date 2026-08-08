@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import GlowButton from "./glow-button";
 
 type Media = {
@@ -68,11 +69,22 @@ export default function Hero() {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const reduced = useRef(false);
+  // Starts false so the server and first client paint agree, and so the
+  // cheaper mobile still is what ships by default; desktop upgrades to video.
+  const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
     reduced.current =
       typeof window !== "undefined" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }, []);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const sync = () => setIsDesktop(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
   }, []);
 
   useEffect(() => {
@@ -111,10 +123,15 @@ export default function Hero() {
                 {/* media: video or image, with a gradient fallback behind it */}
                 <div className="absolute inset-0" style={{ background: slide.visual }} />
                 {slide.media.type === "video" ? (
-                  <>
-                    {/* video on desktop only; image on mobile + tablet */}
+                  /* Only one of these is ever mounted. Hiding the other with
+                     `lg:hidden`/`hidden` still fetched it — a display:none
+                     <img> is downloaded regardless, and the <video> pulled
+                     metadata on phones. Mounting by breakpoint means mobile
+                     never touches the mp4 and desktop never fetches the
+                     mobile still. */
+                  isDesktop ? (
                     <video
-                      className="hero-slide__visual hidden h-full w-full object-cover lg:block"
+                      className="hero-slide__visual h-full w-full object-cover"
                       src={slide.media.src}
                       autoPlay
                       muted
@@ -122,22 +139,26 @@ export default function Hero() {
                       playsInline
                       preload="metadata"
                     />
-                    {slide.media.mobileSrc && (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        className="hero-slide__visual h-full w-full object-cover lg:hidden"
+                  ) : (
+                    slide.media.mobileSrc && (
+                      <Image
+                        className="hero-slide__visual object-cover"
                         src={slide.media.mobileSrc}
                         alt=""
+                        fill
+                        priority
+                        sizes="100vw"
                       />
-                    )}
-                  </>
+                    )
+                  )
                 ) : (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    className="hero-slide__visual h-full w-full object-cover"
+                  <Image
+                    className="hero-slide__visual object-cover"
                     src={slide.media.src}
                     alt=""
-                    loading={i === 0 ? "eager" : "lazy"}
+                    fill
+                    sizes="100vw"
+                    priority={i === 0}
                   />
                 )}
                 <div aria-hidden className="absolute inset-0 grid-veil opacity-40" />

@@ -31,6 +31,7 @@ import Reveal from "./reveal";
 import CountUp from "./count-up";
 import Contact from "./contact";
 import type { ServiceContent } from "@/lib/service-content";
+import Image from "next/image";
 
 const NAV = [
   { label: "Core Principles", href: "#principles" },
@@ -190,11 +191,13 @@ export default function ServicePage({ content }: { content: ServiceContent }) {
             <Reveal className="card relative min-h-[20rem] overflow-hidden sm:min-h-[26rem]">
               {heroImage ? (
                 <>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <Image
                     src={heroImage}
                     alt={`${name} service`}
-                    className="absolute inset-0 h-full w-full object-cover opacity-75"
+                    fill
+                    priority
+                    sizes="(min-width: 1024px) 50vw, 100vw"
+                    className="object-cover opacity-75"
                   />
                   <div
                     aria-hidden

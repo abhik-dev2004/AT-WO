@@ -32,8 +32,14 @@ export default function LiquidChrome({
     if (!container) return;
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    const renderer = new Renderer({ antialias: true, dpr: Math.min(window.devicePixelRatio, 1.5) });
+    const small = window.matchMedia("(max-width: 768px)").matches;
+    // Phones report 2-3x DPR; rendering a full-screen procedural shader at
+    // that density costs 4-9x the fragments for an effect that is deliberately
+    // out of focus. 1.0 on mobile is indistinguishable here.
+    const dpr = small ? 1 : Math.min(window.devicePixelRatio, 1.5);
+    // antialias is pointless on a full-screen triangle with no geometry edges,
+    // and forces a multisampled backbuffer.
+    const renderer = new Renderer({ antialias: false, dpr });
     const gl = renderer.gl;
     gl.clearColor(0.02, 0.024, 0.035, 1);
 
@@ -58,11 +64,16 @@ export default function LiquidChrome({
       uniform vec2 uMouse;
       varying vec2 vUv;
 
+      uniform float uWaveIters;
+
       vec4 renderImage(vec2 uvCoord) {
         vec2 fragCoord = uvCoord * uResolution.xy;
         vec2 uv = (2.0 * fragCoord - uResolution.xy) / min(uResolution.x, uResolution.y);
 
+        // Iteration count drops on small screens — later harmonics are a
+        // sub-pixel wobble there, so they cost real time and show nothing.
         for (float i = 1.0; i < 10.0; i++) {
+          if (i > uWaveIters) break;
           uv.x += uAmplitude / i * cos(i * uFrequencyX * uv.y + uTime + uMouse.x * 3.14159);
           uv.y += uAmplitude / i * cos(i * uFrequencyY * uv.x + uTime + uMouse.y * 3.14159);
         }
@@ -89,16 +100,11 @@ export default function LiquidChrome({
       }
 
       void main() {
-        vec4 col = vec4(0.0);
-        int samples = 0;
-        for (int i = -1; i <= 1; i++) {
-          for (int j = -1; j <= 1; j++) {
-            vec2 offset = vec2(float(i), float(j)) * (1.0 / min(uResolution.x, uResolution.y));
-            col += renderImage(vUv + offset);
-            samples++;
-          }
-        }
-        gl_FragColor = col / float(samples);
+        // One sample per pixel. This previously supersampled 3x3, running the
+        // whole 9-iteration wave loop nine times per pixel — ~160 trig ops per
+        // pixel per frame, which is what pinned mobile GPUs. The effect is a
+        // soft gradient, so the extra samples bought almost nothing visually.
+        gl_FragColor = renderImage(vUv);
       }
     `;
 
@@ -120,6 +126,7 @@ export default function LiquidChrome({
         uFrequencyX: { value: frequencyX },
         uFrequencyY: { value: frequencyY },
         uMouse: { value: new Float32Array([0.5, 0.5]) },
+        uWaveIters: { value: small ? 4 : 9 },
       },
     });
     const mesh = new Mesh(gl, { geometry, program });
@@ -145,24 +152,49 @@ export default function LiquidChrome({
     if (interactive && !reduced) window.addEventListener("mousemove", handleMouseMove);
 
     let raf = 0;
+    let last = 0;
+    // A background gradient gains nothing from 60fps; halving the frame rate
+    // on phones halves the GPU work and the battery drain with it.
+    const minFrameMs = small ? 1000 / 30 : 0;
+
     function update(t: number) {
       raf = requestAnimationFrame(update);
+      if (minFrameMs && t - last < minFrameMs) return;
+      last = t;
       program.uniforms.uTime.value = t * 0.001 * speed;
       renderer.render({ scene: mesh });
     }
 
     container.appendChild(gl.canvas);
 
+    function start() {
+      if (!raf && !reduced) raf = requestAnimationFrame(update);
+    }
+    function stop() {
+      if (raf) {
+        cancelAnimationFrame(raf);
+        raf = 0;
+      }
+    }
+    // Belt-and-braces: browsers already throttle rAF in background tabs, but
+    // this guarantees the loop is fully stopped rather than merely slowed.
+    function onVisibility() {
+      if (document.hidden) stop();
+      else start();
+    }
+    document.addEventListener("visibilitychange", onVisibility);
+
     if (reduced) {
       // Single static frame — no animation loop.
       program.uniforms.uTime.value = 1.4;
       renderer.render({ scene: mesh });
     } else {
-      raf = requestAnimationFrame(update);
+      start();
     }
 
     return () => {
-      cancelAnimationFrame(raf);
+      stop();
+      document.removeEventListener("visibilitychange", onVisibility);
       window.removeEventListener("resize", resize);
       if (interactive && !reduced) window.removeEventListener("mousemove", handleMouseMove);
       if (gl.canvas.parentElement) gl.canvas.parentElement.removeChild(gl.canvas);

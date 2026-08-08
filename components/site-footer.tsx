@@ -1,4 +1,5 @@
 import { XIcon, LinkedInIcon, InstagramIcon } from "./brand";
+import Image from "next/image";
 
 const COLUMNS = [
   {
@@ -96,7 +97,7 @@ export default function SiteFooter() {
         <div className="mt-14 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-white/8 pt-6">
           <a href="#top" className="flex items-center gap-2.5">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo.png" alt="Abstract Techvisions" className="h-6 w-auto" />
+            <Image src="/logo.png" alt="Abstract Techvisions" width={121} height={69} className="h-6 w-auto" />
             <span className="font-display text-sm font-semibold tracking-tight">
               Abstract Techvisions
             </span>

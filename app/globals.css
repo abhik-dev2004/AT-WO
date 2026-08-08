@@ -952,3 +952,58 @@ video.hero-slide__visual {
     transform: scale(1.07);
   }
 }
+
+/* ------------------------------------------------------------------ *
+ *  Mobile performance
+ *
+ *  backdrop-filter is the single most expensive thing on this page on a
+ *  phone. Every .card/.glass surface asks the compositor to snapshot what
+ *  is behind it, blur it at 40px, and composite the result — and because
+ *  the WebGL backdrop animates, that backdrop is dirty on *every frame*,
+ *  so the blur can never be cached. With 20+ cards on a page that is
+ *  20+ full-surface blurs per frame.
+ *
+ *  On small screens the effect is dropped and the surface tints are made
+ *  correspondingly more opaque, which looks near-identical over a dark
+ *  page while costing nothing.
+ * ------------------------------------------------------------------ */
+@media (max-width: 768px) {
+  .card {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background-image: linear-gradient(
+      160deg,
+      rgba(12, 14, 22, 0.93) 0%,
+      rgba(9, 11, 18, 0.95) 60%,
+      rgba(8, 10, 16, 0.96) 100%
+    );
+  }
+  .glass {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: linear-gradient(
+      180deg,
+      rgba(12, 14, 22, 0.93) 0%,
+      rgba(8, 10, 16, 0.96) 100%
+    );
+  }
+  .token,
+  .btn-glass,
+  .star-border__inner {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .btn-glass {
+    background: rgba(255, 255, 255, 0.08);
+  }
+  .star-border__inner {
+    background: rgba(10, 12, 19, 0.96);
+  }
+
+  /* box-shadow animations repaint the element every frame rather than
+     compositing a transform. Harmless on a desktop GPU, not on a phone. */
+  .timeline-card,
+  .tri-node {
+    animation: none;
+  }
+}

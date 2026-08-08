@@ -6,6 +6,7 @@ import Reveal from "./reveal";
 import Contact from "./contact";
 import CaseStudyTabs from "./case-study-tabs";
 import type { CaseStudy } from "@/lib/customer-content";
+import Image from "next/image";
 
 export default function CaseStudyPage({ study }: { study: CaseStudy }) {
   const { hero, tabsHeading, tabs, quote, stats, outcome, key: accent } = study;
@@ -31,11 +32,13 @@ export default function CaseStudyPage({ study }: { study: CaseStudy }) {
           <div className="mt-6 grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
             {/* Cover image, shared with the card on the customers index */}
             <Reveal className="card relative min-h-[18rem] overflow-hidden sm:min-h-[24rem]">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={study.cardImage}
                 alt=""
-                className="absolute inset-0 h-full w-full object-cover opacity-75"
+                fill
+                priority
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                className="object-cover opacity-75"
               />
               <div
                 aria-hidden

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ChevronDown, Menu, X, ArrowRight } from "lucide-react";
 import GlowButton from "./glow-button";
 import { SERVICE_CATEGORIES } from "@/lib/services";
+import Image from "next/image";
 
 const SIMPLE_NAV = [
   { label: "About", href: "/about" },
@@ -60,7 +61,7 @@ export default function SiteHeader() {
       >
         <Link href="/" className="flex items-center gap-2.5 shrink-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo.png" alt="Abstract Techvisions" className="h-7 w-auto" />
+          <Image src="/logo.png" alt="Abstract Techvisions" width={121} height={69} priority className="h-7 w-auto" />
           <span className="font-display text-[0.98rem] font-semibold tracking-tight text-ink">
             Abstract Techvisions
           </span>

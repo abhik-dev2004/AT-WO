@@ -7,6 +7,7 @@ import Reveal from "@/components/reveal";
 import GlowButton from "@/components/glow-button";
 import Faq from "@/components/faq";
 import CountUp from "@/components/count-up";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "About",
@@ -104,11 +105,13 @@ export default function AboutPage() {
         <section id="top" className="relative pt-24 sm:pt-28">
           <div className="mx-auto max-w-[88rem] px-6">
             <div className="card relative flex min-h-[42rem] items-center overflow-hidden sm:min-h-[34rem] lg:min-h-[38rem]">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src="/about-hero.jpg"
                 alt=""
-                className="absolute inset-0 h-full w-full object-cover opacity-70"
+                fill
+                priority
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                className="object-cover opacity-70"
               />
               <div
                 aria-hidden

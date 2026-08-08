@@ -1,5 +1,6 @@
 import Reveal from "./reveal";
 import StarBorder from "./star-border";
+import Image from "next/image";
 
 const CASES = [
   {
@@ -75,12 +76,12 @@ export default function CaseStudies() {
             className="card card-hover flex flex-col overflow-hidden"
           >
             <div className="relative m-2 h-44 overflow-hidden rounded-[20px] border border-white/10">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={item.image}
                 alt=""
-                loading="lazy"
-                className="h-full w-full object-cover"
+                fill
+                sizes="(min-width: 768px) 30vw, 100vw"
+                className="object-cover"
               />
               <div
                 aria-hidden

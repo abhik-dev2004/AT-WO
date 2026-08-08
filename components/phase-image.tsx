@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 /**
  * Photograph for a case-study phase tab.
  *
@@ -9,12 +11,12 @@
 export default function PhaseImage({ src }: { src: string }) {
   return (
     <div className="relative h-full w-full overflow-hidden rounded-[26px] border border-white/10">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
+      <Image
         src={src}
         alt=""
-        loading="lazy"
-        className="phase-img h-full w-full object-cover"
+        fill
+        sizes="(min-width: 1024px) 50vw, 100vw"
+        className="phase-img object-cover"
       />
       <div
         aria-hidden

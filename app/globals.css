@@ -977,6 +977,14 @@ video.hero-slide__visual {
       rgba(9, 11, 18, 0.95) 60%,
       rgba(8, 10, 16, 0.96) 100%
     );
+    /* The base rule carries two background layers (the hover glare sweep and
+       the surface gradient) with paired values: `250% 100%, 100% 100%` and
+       `165% 0, 0 0`. Dropping to one layer here would otherwise inherit the
+       sweep's 250%/165% — parking the only remaining layer mostly outside the
+       card and, with no-repeat and a transparent background-color, letting the
+       dark page show through as a band down the side. */
+    background-size: 100% 100%;
+    background-position: 0 0;
   }
   .glass {
     backdrop-filter: none;

@@ -36,7 +36,12 @@ export default function LiquidChrome({
     // Phones report 2-3x DPR; rendering a full-screen procedural shader at
     // that density costs 4-9x the fragments for an effect that is deliberately
     // out of focus. 1.0 on mobile is indistinguishable here.
-    const dpr = small ? 1 : Math.min(window.devicePixelRatio, 1.5);
+    // Capped at 1 everywhere, not just on phones. This now redraws *during*
+    // scroll, competing with the compositor for the same frame budget — and a
+    // frame that misses its deadline is exactly what reads as jitter. At 1.5x
+    // a hi-DPI desktop was rendering 2.25x the fragments for a field that is
+    // an out-of-focus gradient, where the extra density is invisible.
+    const dpr = 1;
     // antialias is pointless on a full-screen triangle with no geometry edges,
     // and forces a multisampled backbuffer.
     const renderer = new Renderer({ antialias: false, dpr });
@@ -65,10 +70,16 @@ export default function LiquidChrome({
       varying vec2 vUv;
 
       uniform float uWaveIters;
+      uniform float uParallax;
 
       vec4 renderImage(vec2 uvCoord) {
         vec2 fragCoord = uvCoord * uResolution.xy;
         vec2 uv = (2.0 * fragCoord - uResolution.xy) / min(uResolution.x, uResolution.y);
+
+        // Vertical drift, driven by scroll. Shifting the sample point rather
+        // than the canvas keeps the layer fixed to the viewport, so the
+        // parallax costs nothing in layout or compositing.
+        uv.y += uParallax;
 
         // Iteration count drops on small screens — later harmonics are a
         // sub-pixel wobble there, so they cost real time and show nothing.
@@ -92,8 +103,11 @@ export default function LiquidChrome({
         float wave = pow(1.0 - abs(sin(uTime - uv.y - uv.x)), 1.8);
         vec3 color = uBaseColor * tint * wave;
 
-        // Animated film grain.
-        float grain = fract(sin(dot(fragCoord, vec2(12.9898, 78.233)) + uTime * 8.0) * 43758.5453);
+        // Static film grain. It used to be reseeded from uTime every frame;
+        // now that time only advances while scrolling, an animated seed would
+        // make the whole field fizz as you scroll. A fixed seed reads as
+        // texture on the surface instead of noise moving through it.
+        float grain = fract(sin(dot(fragCoord, vec2(12.9898, 78.233))) * 43758.5453);
         color += (grain - 0.5) * 0.04;
 
         return vec4(color, 1.0);
@@ -127,6 +141,7 @@ export default function LiquidChrome({
         uFrequencyY: { value: frequencyY },
         uMouse: { value: new Float32Array([0.5, 0.5]) },
         uWaveIters: { value: small ? 4 : 9 },
+        uParallax: { value: 0 },
       },
     });
     const mesh = new Mesh(gl, { geometry, program });
@@ -139,7 +154,6 @@ export default function LiquidChrome({
       res[1] = gl.canvas.height;
       res[2] = gl.canvas.width / gl.canvas.height;
     }
-    window.addEventListener("resize", resize);
     resize();
 
     function handleMouseMove(event: MouseEvent) {
@@ -148,54 +162,112 @@ export default function LiquidChrome({
       const mouse = program.uniforms.uMouse.value as Float32Array;
       mouse[0] = (event.clientX - rect.left) / rect.width;
       mouse[1] = 1 - (event.clientY - rect.top) / rect.height;
+      // Nothing repaints on its own any more, so ask for a frame.
+      schedule();
     }
-    if (interactive && !reduced) window.addEventListener("mousemove", handleMouseMove);
-
-    let raf = 0;
-    let last = 0;
-    // A background gradient gains nothing from 60fps; halving the frame rate
-    // on phones halves the GPU work and the battery drain with it.
-    const minFrameMs = small ? 1000 / 30 : 0;
-
-    function update(t: number) {
-      raf = requestAnimationFrame(update);
-      if (minFrameMs && t - last < minFrameMs) return;
-      last = t;
-      program.uniforms.uTime.value = t * 0.001 * speed;
-      renderer.render({ scene: mesh });
-    }
-
     container.appendChild(gl.canvas);
 
-    function start() {
-      if (!raf && !reduced) raf = requestAnimationFrame(update);
+    /* ----------------------------------------------------------------- *
+     * Scroll-driven, not time-driven.
+     *
+     * There is no permanent animation loop: the field is a still image until
+     * the page scrolls. Scroll position sets a target, a short rAF loop eases
+     * the rendered value toward it, and the loop cancels itself once the two
+     * converge — so an idle page does zero GPU work rather than burning a
+     * full-screen procedural shader at 60fps forever.
+     *
+     * The easing is what makes it read as parallax rather than as the
+     * background being dragged: the field keeps moving briefly after the
+     * scroll stops, instead of snapping frame-for-frame to the scrollbar.
+     * ----------------------------------------------------------------- */
+    let raf = 0;
+    let lastT = 0;
+    let current = 0; // eased, what is on screen
+    let target = 0; // where the scroll position wants it
+
+    // Time constant for the smoothing, in 1/seconds. Lower is softer. This is
+    // the main lever on how much a discrete wheel notch is felt.
+    const SMOOTH = 5;
+
+    // Scroll measured in viewport heights, so the effect is consistent
+    // regardless of how long a given page happens to be.
+    function readScroll() {
+      return window.scrollY / Math.max(window.innerHeight, 1);
     }
-    function stop() {
-      if (raf) {
-        cancelAnimationFrame(raf);
-        raf = 0;
+
+    function draw(progress: number) {
+      // Flow (pattern morph) and drift (vertical offset) both advance with
+      // scroll; drift is the smaller of the two so the field lags the content.
+      //
+      // The flow coefficient is deliberately low. The wave term ends in
+      // pow(..., 1.8), which makes a narrow bright crest — so a small change in
+      // phase sweeps that crest a long way across the screen, and anything but
+      // a gentle rate reads as the background twitching while you scroll.
+      program.uniforms.uTime.value = progress * speed * 2.6;
+      program.uniforms.uParallax.value = -progress * 0.26;
+      renderer.render({ scene: mesh });
+    }
+
+    function tick(t: number) {
+      // Sample scroll here rather than in the listener. Scroll events fire on
+      // their own cadence — several per frame on a trackpad, none for a whole
+      // frame mid-fling — so reading once per rendered frame is both cheaper
+      // and gives an evenly spaced signal to smooth.
+      target = readScroll();
+
+      // dt-clamped so a background tab or a long frame can't produce one huge
+      // catch-up step when the page becomes visible again.
+      const dt = lastT ? Math.min((t - lastT) / 1000, 0.05) : 1 / 60;
+      lastT = t;
+
+      const delta = target - current;
+      if (Math.abs(delta) < 0.0004) {
+        current = target;
+        draw(current);
+        raf = 0; // settled — stop until the next scroll
+        lastT = 0;
+        return;
       }
+
+      // Frame-rate independent exponential smoothing. The previous fixed
+      // `delta * 0.12` per frame eased twice as fast on a 120Hz display as on
+      // 60Hz, and fed wheel jumps almost straight through.
+      current += delta * (1 - Math.exp(-SMOOTH * dt));
+      draw(current);
+      raf = requestAnimationFrame(tick);
     }
-    // Belt-and-braces: browsers already throttle rAF in background tabs, but
-    // this guarantees the loop is fully stopped rather than merely slowed.
-    function onVisibility() {
-      if (document.hidden) stop();
-      else start();
+
+    function schedule() {
+      if (!raf) raf = requestAnimationFrame(tick);
     }
-    document.addEventListener("visibilitychange", onVisibility);
+
+    // The listener only wakes the loop; the loop does the sampling.
+    function onScroll() {
+      schedule();
+    }
+
+    // Resizing changes the canvas buffer, which leaves it blank until
+    // something draws — and with no loop running, nothing would.
+    function onResize() {
+      resize();
+      draw(current);
+    }
+    window.addEventListener("resize", onResize);
 
     if (reduced) {
-      // Single static frame — no animation loop.
-      program.uniforms.uTime.value = 1.4;
-      renderer.render({ scene: mesh });
+      // Static frame, no scroll coupling.
+      draw(0);
     } else {
-      start();
+      current = target = readScroll();
+      draw(current);
+      window.addEventListener("scroll", onScroll, { passive: true });
+      if (interactive) window.addEventListener("mousemove", handleMouseMove);
     }
 
     return () => {
-      stop();
-      document.removeEventListener("visibilitychange", onVisibility);
-      window.removeEventListener("resize", resize);
+      if (raf) cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
       if (interactive && !reduced) window.removeEventListener("mousemove", handleMouseMove);
       if (gl.canvas.parentElement) gl.canvas.parentElement.removeChild(gl.canvas);
       gl.getExtension("WEBGL_lose_context")?.loseContext();
